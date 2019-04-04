@@ -1,7 +1,11 @@
-![Alt text](output/pcaCover/cortical_1.png?raw=true "Generated brain image")
 
+Cortical surface           |  Subcortical structures
+:-------------------------:|:-------------------------:
+![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
-# Brain colouring software
+# Brain colouring software 
+Author: Razvan V. Marinescu - razvan@csail.mit.edu
+
 
 INPUT: list of numbers representing pathology at each region in the brain
 
