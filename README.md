@@ -22,5 +22,7 @@ Instructions:
 	- the mapping between your atlas the 3D brain regions that will be coloured
 	- image resolution, etc ...
 	
-3. run make
+3. run using the Makefile command
+	
+	``` make ```
 
