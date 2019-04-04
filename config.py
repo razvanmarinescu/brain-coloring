@@ -3,15 +3,18 @@ INPUT_FILE = 'data/pcaCover.csv'
 
 OUTPUT_FOLDER = 'output/pcaCover'
 
-# pial or inflated
+# either pial (with gyri/sulci) or inflated (smooth)
 BRAIN_TYPE = 'pial'
 
-# can be either cortical or subcortical
+# either cortical or subcortical
 IMG_TYPE = 'cortical'
 
-# white -> yellow -> orange -> red
-COLORS_RGB = [(1,1,1), (1,1,0), (1,0.4,0), (1,0,0)]
-# COLORS_RGB = [(1,1,1), (1,0,0), (1,0,0), (1,0,0)]
+# what colours to use for showing brain pathology
+# e.g. if the range of pathology is [0,3],
+# then you need four colors (the first one is for pathology 0, i.e. no pathology)
+# a pathology at 1.3 will interpolate between the second and third color
+COLORS_RGB = [(1,1,1), (1,1,0), (1,0.4,0), (1,0,0)] # white -> yellow -> orange -> red
+# COLORS_RGB = [(1,1,1), (1,0,0), (1,0,0), (1,0,0)] # white -> red -> red -> red
 
 # output image resolution for X,Y in pixels
 RESOLUTION = (2400, 1800)
@@ -23,8 +26,9 @@ BACKGROUND_COLOR = (1,1,1)
 # for luminosity settings, look into blendHelper.py:setLamp()
 
 # map the names of each 3D cortical structure to be coloured to the name of the structure you have in your atlas.
+# only change the right-hand side values, as the left-hand side are used by blender.
 cortAreasIndexMap = {
-  'bankssts':-1,
+  'bankssts':-1, # -1 means do not colour this region
   'caudalanteriorcingulate':'anterior cingulate',
   'caudalmiddlefrontal':'medial frontal',
   'cuneus':'cuneus',
@@ -60,9 +64,10 @@ cortAreasIndexMap = {
   'transversetemporal':'planum temporale',
   'unknown':-1}
 
-# do the same map for subcortical structures
+# do the same map for subcortical
+# only change the right-hand side values
 subcortAreasIndexMap = {
-  'Left-Accumbens-area':-1,
+  'Left-Accumbens-area':-1, # -1 means do not colour this region
   'Left-Caudate':-1,
   'Left-Cerebellum-White-Matter':-1,
   'Left-Inf-Lat-Vent':-1,
