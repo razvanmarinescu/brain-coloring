@@ -7,7 +7,7 @@ OUTPUT_FOLDER = 'output/pcaCover'
 BRAIN_TYPE = 'pial'
 
 # either cortical or subcortical
-IMG_TYPE = 'cortical'
+IMG_TYPE = 'subcortical'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
@@ -17,7 +17,7 @@ COLORS_RGB = [(1,1,1), (1,1,0), (1,0.4,0), (1,0,0)] # white -> yellow -> orange 
 # COLORS_RGB = [(1,1,1), (1,0,0), (1,0,0), (1,0,0)] # white -> red -> red -> red
 
 # output image resolution for X,Y in pixels
-RESOLUTION = (2400, 1800)
+RESOLUTION = (1200, 900)
 
 # default is white
 BACKGROUND_COLOR = (1,1,1)
@@ -67,15 +67,15 @@ cortAreasIndexMap = {
 # do the same map for subcortical
 # only change the right-hand side values
 subcortAreasIndexMap = {
-  'Left-Accumbens-area':-1, # -1 means do not colour this region
-  'Left-Caudate':-1,
+  'Left-Accumbens-area':'accumbens', # -1 means do not colour this region
+  'Left-Caudate':'caudate',
   'Left-Cerebellum-White-Matter':-1,
   'Left-Inf-Lat-Vent':-1,
-  'Left-Pallidum':-1,
-  'Left-Thalamus-Proper':-1,
+  'Left-Pallidum':'pallidum',
+  'Left-Thalamus-Proper':'thalamus',
   'Left-Amygdala':'amygdala',
   'Left-Cerebellum-Cortex':-1,
   'Left-Hippocampus':'hippocampus',
   'Left-Lateral-Ventricle':-1,
-  'Left-Putamen':-1,
+  'Left-Putamen':'putamen',
   'Left-VentralDC':'ventral dc'}

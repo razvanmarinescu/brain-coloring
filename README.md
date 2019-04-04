@@ -1,3 +1,5 @@
+![Alt text](output/pcaCover/cortical_1.png?raw=true "Generated brain image")
+
 
 # Brain colouring software
 

@@ -17,9 +17,9 @@ def getInterpColor(abn_level, COLOR_POINTS):
 
   sigmaLevel = int(abn_level)
   abn_level -= sigmaLevel
-  print('abn_level', abn_level)
-  print('len(COLOR_POINTS)', len(COLOR_POINTS))
-  print('sigmaLevel', sigmaLevel)
+  # print('abn_level', abn_level)
+  # print('len(COLOR_POINTS)', len(COLOR_POINTS))
+  # print('sigmaLevel', sigmaLevel)
   assert 0 <= abn_level <= 1
 
   # hue - 120 green 80 - yellow 40 - orange 0 -red
@@ -297,11 +297,10 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
 
             # print("regionName", regionName, finalColor)
 
-            if regionName == 'rh.pial.DK.inferiorparietal':
-              print('targetLabel', targetLabel)
-              print('finalColor', finalColor)
-              print('signifAbnorm', signifAbnorm)
-              # print(adsa)
+            # if regionName == 'rh.pial.DK.inferiorparietal':
+            #   print('targetLabel', targetLabel)
+            #   print('finalColor', finalColor)
+            #   print('signifAbnorm', signifAbnorm)
 
             # material = makeMaterial('mat_%d_%d_%s' % (matrixIndex, imgIndex, regionName), finalColor, (1,1,1), 1)
             # setMaterial(obj, material)
