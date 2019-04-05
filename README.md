@@ -1,9 +1,5 @@
 INPUT:
 
-Image | hippocampus | superior frontal | inferior occipital
-:-------------------------:|:-------------------------:
-Pathology Img 1| 0.1 | 2.3 | 4.5
-
 OUTPUT:
 Cortical surface           |  Subcortical structures
 :-------------------------:|:-------------------------:
