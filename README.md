@@ -1,6 +1,3 @@
-INPUT:
-
-OUTPUT:
 Cortical surface           |  Subcortical structures
 :-------------------------:|:-------------------------:
 ![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
