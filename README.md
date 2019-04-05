@@ -71,7 +71,7 @@ If successful, you should see the images in output/pcaCover being updated.
 ``` pip3 install scipy ```
 ``` pip3 install numpy ```
 
-If the same error is obtained even after installing, it's probably because the packages are installed in the default system-wide python instead of the local python. See this answer for how to do this:
+If the same error is obtained even after installing, it's probably because the packages are installed in the default system-wide python instead of the local python. See this answer for how to fix this:
 
 https://blender.stackexchange.com/questions/5287/using-3rd-party-python-modules
 
