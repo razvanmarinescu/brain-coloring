@@ -1,14 +1,12 @@
 
 # INPUT: 
-### csv file with pathology numbers
+### csv file with pathology numbers in user-defined range (0-3 here) 
 
 . |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
 Pathology in Image 1| 0.6 | 2.3 | 1.3 | ..
 Pathology in Image 2| 1.2 | 0.0 | 3.0 | ..
 Pathology in Image 3| 2.4 | 0.1 | 1.6 | ..
-
-
 
 
 # OUTPUT: 
