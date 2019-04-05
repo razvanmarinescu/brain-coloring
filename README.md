@@ -19,6 +19,9 @@ Cortical surface           |  Subcortical structures
 # Brain colouring software 
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
+I plan to publish a paper on this, which can be cited. Until then, I would appreciate if you could include me as a co-author.
+
+License: CC-BY 3.0
 
 # Installation using Docker
 
