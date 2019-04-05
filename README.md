@@ -88,19 +88,19 @@ Note that this is harder due to the need of installing packages in the python ve
 
 1. Generate the list of pathology numbers according to the format in data/pcaCover.csv. Each row will generate a pair of cortical/subcortical images.
 
-1.1 If using docker, copy your input.csv representing pathology values to the docker container 
+2. If using docker, copy your input.csv representing pathology values to the docker container:
 
-	``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data```
-	Here, replace 9f52258c25f6 with your container-ID, which you can find by running on host:
-
-	``` docker ps ```
-
-	```
+	``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data ```
+	
+    Here, replace 9f52258c25f6 with your container-ID, which you can find by running ``` docker ps ``` on host:
+    
+	``` 
 	CONTAINER ID        IMAGE                      COMMAND     
 	e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
 	```
 
-2. change configuration file config.py
+
+3. change configuration file config.py
 	- input file: set to your new input file
 	- brain type: pial or inflated
 	- image type: cortical or subcortical
@@ -108,11 +108,11 @@ Note that this is harder due to the need of installing packages in the python ve
 	- the mapping between your atlas and the 3D brain regions that will be coloured (we use the DK atlas)
 	- image resolution, etc ...
 	
-3. re-generate images using the Makefile command
+4. re-generate images using the Makefile command
 	
 	``` make ```
 
-3.1. If using docker, copy the image out of the docker container to the home directory ~/ :
+5. If using docker, copy the image out of the docker container to the home directory ~/ :
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
 
