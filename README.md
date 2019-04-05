@@ -1,6 +1,7 @@
+# BrainPainter - Brain colouring software 
 
-# INPUT: 
-### csv file with pathology numbers in user-defined range (0-3 here) 
+## INPUT: 
+#### csv file with pathology numbers in user-defined range (0-3 here) 
 
 . |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
@@ -9,14 +10,14 @@ Pathology in Image 2| 1.2 | 0.0 | 3.0 | ..
 Pathology in Image 3| 2.4 | 0.1 | 1.6 | ..
 
 
-# OUTPUT: 
-### cortical + subcortical drawings for each table row:
+## OUTPUT: 
+#### cortical + subcortical drawings for each table row:
 
 Cortical surface           |  Subcortical structures
 :-------------------------:|:-------------------------:
 ![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
-# BrainPainter - Brain colouring software 
+
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
 BrainPainter is a software for colouring brain images. So far it has been used to display regions affected by pathology, but can otherwise highlight any other areas.
