@@ -50,13 +50,11 @@ The image size may be large (~1GB), so use a good connection. Note that after th
 
 If successful, you should see the images in output/pcaCover being updated. 
 
-# Installation without Docker
+# Installation without Docker (harder due to dependencies)
 
 1. Install blender
 
-2. Install python libraries: scipy, numpy. Do not install bpy library, it comes with the python already packaged in blender.
-
-3. Pull the git repository: 
+2. Pull the git repository: 
 
 ```git clone https://github.com/mrazvan22/brain-coloring```
 
@@ -66,6 +64,20 @@ If successful, you should see the images in output/pcaCover being updated.
 
 ``` make ```
 
+4. If running on MacOS, blender might not be added to your path. In this case, run (change the path/to/blender to your installation location):
+
+``` sudo /Applications/Blender/blender.app/Contents/MacOS/blender --background --python blendCreateSnapshot.py ```
+
+5. If python libraries are missing, install them using: 
+
+``` pip3 install scipy ```
+``` pip3 install numpy ```
+
+If the same error is obtained even after installing, it's probably because the packages are installed in the default system-wide python instead of the local python. See this answer for how to do this:
+
+https://blender.stackexchange.com/questions/5287/using-3rd-party-python-modules
+
+Note: do not install the bpy package, as it comes automatically with the blender-bundled python
 
 # Running the software
 
