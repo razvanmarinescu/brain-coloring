@@ -21,7 +21,7 @@ Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
 BrainPainter is a software for colouring brain images. So far it has been used to display regions affected by pathology, but can otherwise highlight any other areas.
 
-If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: "... Drawings generated using BrainPainter [X].", where 
+If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [X]."```, where 
 
 ```
 References:
