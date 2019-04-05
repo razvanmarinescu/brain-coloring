@@ -19,7 +19,7 @@ Cortical surface           |  Subcortical structures
 # BrainPainter - Brain colouring software 
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
-BrainPainter is a tool for colouring brain images. So far it has been used to display regions affected by pathology, but can otherwise highlight any other areas.
+BrainPainter is a software for colouring brain images. So far it has been used to display regions affected by pathology, but can otherwise highlight any other areas.
 
 If you find the software useful, I would appreciate if you could cite it in the figure caption along these lines: "... Drawings generated using BrainPainter [1]", where 
 
