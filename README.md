@@ -1,15 +1,16 @@
+INPUT:
 
+Image | hippocampus | superior frontal | inferior occipital
+:-------------------------:|:-------------------------:
+Pathology Img 1| 0.1 | 2.3 | 4.5
+
+OUTPUT:
 Cortical surface           |  Subcortical structures
 :-------------------------:|:-------------------------:
 ![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
 # Brain colouring software 
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
-
-
-INPUT: list of numbers representing pathology at each region in the brain
-
-OUTPUT: brain image coloured according to levels of pathology in those regions
 
 
 # Installation
@@ -48,13 +49,22 @@ If successful, you should see the images in output/pcaCover being updated.
 
 1. simply generate the list of pathology numbers according to the format in data/pcaCover.csv  
 
-1.1 If using docker, copy your input.csv to the docker container 
+1.1 If using docker, copy your input.csv representing pathology values to the docker container 
 
 ``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data```
 
+Here, replace 9f52258c25f6 with your container-ID, which you can find by running on host:
+
+``` docker ps 
+
+CONTAINER ID        IMAGE                      COMMAND     
+e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
+```
+
 2. change configuration file config.py
 	- input file: set to your input file
-	- brain type: pial or cortical
+	- brain type: pial or inflated
+	- image type: cortical or subcortical
 	- colours to show pathology
 	- the mapping between your atlas the 3D brain regions that will be coloured
 	- image resolution, etc ...
@@ -65,5 +75,5 @@ If successful, you should see the images in output/pcaCover being updated.
 
 3.1. If using docker, copy the image out of the docker container to the home directory ~/ :
 
-``` sudo docker cp 9f52258c25f6:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
+``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
 
