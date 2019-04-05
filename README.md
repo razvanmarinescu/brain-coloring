@@ -16,10 +16,14 @@ Cortical surface           |  Subcortical structures
 :-------------------------:|:-------------------------:
 ![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
-# Brain colouring software 
+# BrainPainter - Brain colouring software 
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
-I plan to publish a paper on this, which can be cited. Until then, I would appreciate if you could include me as a co-author on your paper.
+BrainPainter is a tool for colouring brain images. So far it has been used to display regions affected by pathology, but can otherwise highlight any other areas.
+
+If you find the software useful, I would appreciate if you could cite it in the figure caption along these lines: "... Drawings generated using BrainPainter [1]", where 
+
+```[1] : BrainPainter software, R.V. Marinescu, https://github.com/mrazvan22/brain-coloring ```
 
 License: CC-BY 3.0
 
