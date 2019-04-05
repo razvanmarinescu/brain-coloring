@@ -94,9 +94,9 @@ Note that this is harder due to the need of installing packages in the python ve
 
     Here, replace 9f52258c25f6 with your container-ID, which you can find by running on host:
 
-    ``` 
-    docker ps 
-    
+    ``` docker ps ```
+
+    ```
     CONTAINER ID        IMAGE                      COMMAND     
     e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
     ```
