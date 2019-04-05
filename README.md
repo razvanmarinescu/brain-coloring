@@ -123,3 +123,13 @@ Note that this is harder due to the need of installing packages in the python ve
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
 
+## Example uses of BrainPainter
+
+!["Drawings used by Young et al, Nature Comms., 2018"](https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41467-018-05892-0/MediaObjects/41467_2018_5892_Fig3_HTML.png)
+
+*Brains used in Young et al, Nature Comms., 2018*
+
+
+!["Subcortical regions used by Wijeratne et al, Ann. Clin. Neurol., 2018"](https://wol-prod-cdn.literatumonline.com/cms/attachment/f34335e4-b7b8-44de-80ee-c5b0a459f309/acn3558-fig-0001-m.jpg)
+
+*Brains used in Young et al, Nature Comms., 2018*
