@@ -1,13 +1,18 @@
 
-INPUT
+# INPUT: 
+### csv file with pathology numbers
 
 . |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
 Pathology in Image 1| 0.6 | 2.3 | 1.3 | ..
 Pathology in Image 2| 1.2 | 0.0 | 3.0 | ..
+Pathology in Image 3| 2.4 | 0.1 | 1.6 | ..
 
 
-OUTPUT
+
+
+# OUTPUT: 
+### cortical + subcortical drawings for each table row:
 
 Cortical surface           |  Subcortical structures
 :-------------------------:|:-------------------------:
@@ -17,11 +22,9 @@ Cortical surface           |  Subcortical structures
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
 
-# Installation
+# Installation using Docker
 
-## Using the Docker container
-
-In order to remove the need to install blender and the python libraries, we made a container which has blender and this repository already pre-installed and ready to run.
+In order to remove the need to install blender and it's dependencies, I made a container which has blender and this repository already pre-installed and ready to run.
 
 1. Install Docker for your current operating system. For MacOS use this link:
 https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
@@ -39,19 +42,34 @@ The image size may be large (~1GB), so use a good connection. Note that after th
 
 ``` root@e3b175e886db:/# ```
 
-3. Go to the directory and run make
+3. Go to the directory and run the make command
 
 ``` cd /home/brain-coloring/ ```
-
-Run the software using the Makefile command:
 
 ``` make ```
 
 If successful, you should see the images in output/pcaCover being updated. 
 
-## Using the software
+# Installation without Docker
 
-1. simply generate the list of pathology numbers according to the format in data/pcaCover.csv  
+1. Install blender
+
+2. Install python libraries: scipy, numpy. Do not install bpy library, it comes with the python already packaged in blender.
+
+3. Pull the git repository: 
+
+```git clone https://github.com/mrazvan22/brain-coloring```
+
+3. Go to the directory and run the make command
+
+``` cd brain-coloring/ ```
+
+``` make ```
+
+
+# Running the software
+
+1. Generate the list of pathology numbers according to the format in data/pcaCover.csv. Each row will generate a pair of cortical/subcortical images.
 
 1.1 If using docker, copy your input.csv representing pathology values to the docker container 
 
@@ -66,11 +84,11 @@ e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
 ```
 
 2. change configuration file config.py
-	- input file: set to your input file
+	- input file: set to your new input file
 	- brain type: pial or inflated
 	- image type: cortical or subcortical
-	- colours to show pathology
-	- the mapping between your atlas the 3D brain regions that will be coloured
+	- RGB colours to show pathology
+	- the mapping between your atlas and the 3D brain regions that will be coloured (we use the DK atlas)
 	- image resolution, etc ...
 	
 3. re-generate images using the Makefile command
