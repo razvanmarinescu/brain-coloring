@@ -31,6 +31,23 @@ References:
 
 License: CC-BY 3.0
 
+
+## Example uses of BrainPainter
+
+<img src="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41467-018-05892-0/MediaObjects/41467_2018_5892_Fig3_HTML.png" alt="Drawings used by Young et al, Nature Comms., 2018" width="600"/>
+
+*Brains used by [Young et al, Nature Comms., 2018](https://www.nature.com/articles/s41467-018-05892-0) *
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+<img src="https://wol-prod-cdn.literatumonline.com/cms/attachment/f34335e4-b7b8-44de-80ee-c5b0a459f309/acn3558-fig-0001-m.jpg" alt="Subcortical regions used by Wijeratne et al, Ann. Clin. Neurol., 2018" width="600"/>
+
+*Subcortical regions used by [Wijeratne et al, Ann. Clin. Neurol., 2018](https://onlinelibrary.wiley.com/doi/full/10.1002/acn3.558)*
+
+
 # Installation using Docker
 
 In order to remove the need to install blender and it's dependencies, I made a container which has blender and this repository already pre-installed and ready to run.
@@ -124,17 +141,3 @@ Note that this is harder due to the need of installing packages in the python ve
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
 
-## Example uses of BrainPainter
-
-<img src="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41467-018-05892-0/MediaObjects/41467_2018_5892_Fig3_HTML.png" alt="Drawings used by Young et al, Nature Comms., 2018" width="600"/>
-
-*Brains used by [Young et al, Nature Comms., 2018](https://www.nature.com/articles/s41467-018-05892-0) *
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-
-<img src="https://wol-prod-cdn.literatumonline.com/cms/attachment/f34335e4-b7b8-44de-80ee-c5b0a459f309/acn3558-fig-0001-m.jpg" alt="Subcortical regions used by Wijeratne et al, Ann. Clin. Neurol., 2018" width="600"/>
-
-*Subcortical regions used by [Wijeratne et al, Ann. Clin. Neurol., 2018](https://onlinelibrary.wiley.com/doi/full/10.1002/acn3.558)*
