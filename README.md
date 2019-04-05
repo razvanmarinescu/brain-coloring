@@ -87,16 +87,16 @@ Note that this is harder due to the need of installing packages in the python ve
 
 1.1 If using docker, copy your input.csv representing pathology values to the docker container 
 
-``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data```
+    ``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data```
 
-Here, replace 9f52258c25f6 with your container-ID, which you can find by running on host:
+    Here, replace 9f52258c25f6 with your container-ID, which you can find by running on host:
 
-``` 
-docker ps 
-
-CONTAINER ID        IMAGE                      COMMAND     
-e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
-```
+    ``` 
+    docker ps 
+    
+    CONTAINER ID        IMAGE                      COMMAND     
+    e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
+    ```
 
 2. change configuration file config.py
 	- input file: set to your new input file
@@ -112,5 +112,5 @@ e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
 
 3.1. If using docker, copy the image out of the docker container to the home directory ~/ :
 
-``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
+    ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
 
