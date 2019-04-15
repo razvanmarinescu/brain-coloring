@@ -13,14 +13,14 @@ Pathology in Image 3| 2.4 | 0.1 | 1.6 | ..
 ## OUTPUT: 
 #### cortical + subcortical drawings for each table row:
 
-Cortical surface           |  Subcortical structures
-:-------------------------:|:-------------------------:
-![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
+Cortical - front   | Cortical - back   |  Subcortical
+:-------------------------:|:------------------:|:-----------------:
+![Cortical surface](output/pcaCover/cortical-front_1.png) | ![Cortical surface back](output/pcaCover/cortical-back_1.png)   |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
 
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
-BrainPainter is a software for colouring brain images. So far it has been used to display regions affected by pathology, but can otherwise highlight any other areas.
+BrainPainter is a software for colouring brain images using any used-defined input. For each brain region it takes values from a 0-1 (or 0-max), and colours the brain regions according to these numbers. Numbers could represent biomarkers or absolutely anything. 
 
 If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [X]."```, where 
 
@@ -68,10 +68,13 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
     
     ``` root@e3b175e886db:/# ```
 
-3. Go to the directory and run the make command
+3. Go to the directory and pull the latest changes, if any:
 
     ``` cd /home/brain-coloring/ ```
     
+    ``` git pull origin master```
+    
+4. Generate the brain images using the make command (also see Makefile):
     ``` make ```
     
 If successful, you should see the images in output/pcaCover being updated. 
