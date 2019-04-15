@@ -18,7 +18,6 @@ import pandas as pd
 # filename = 'blendCreateSnapshot.py'
 # exec(compile(open('blendCreateSnapshot.py').read(), 'blendCreateSnapshot.py', 'exec'))
 
-
 blendFullPath = os.path.abspath('.')
 # print(blendFullPath)
 os.chdir(blendFullPath)
@@ -41,7 +40,6 @@ IMG_TYPE = config.IMG_TYPE
 
 BRAIN_TYPE = config.BRAIN_TYPE
 
-
 subcortAreasIndexMap = config.subcortAreasIndexMap
 
 subcortRightAreas = ['Right' + x[4:] for x in subcortAreasIndexMap.keys()]
@@ -49,7 +47,6 @@ subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortAreasIndexMap.val
 subcortAreasIndexMap.update(subcortRightAreasIndexMap)
 subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
 subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
-
 
 cortAreasIndexMap = config.cortAreasIndexMap
 cortAreas = cortAreasIndexMap.keys()
@@ -68,12 +65,15 @@ if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
   painter = SubcorticalPainter(cortFilesRight,subcortFiles)
   indexMap = subcortAreasIndexMap
-elif IMG_TYPE == 'cortical':
+elif IMG_TYPE == 'cortical-front':
   #loadCortical(cortFilesAll)
   painter = CorticalPainter(cortFilesAll)
   indexMap = cortAreasIndexMap
+elif IMG_TYPE == 'cortical-back':
+  painter = CorticalPainterBack(cortFilesRight)
+  indexMap = cortAreasIndexMap
 else:
-  raise ValueError('mode has to be either cortical or subcortical')
+  raise ValueError('mode has to be either cortical-front, cortical-back or subcortical')
 
 painter.prepareScene(resolution=config.RESOLUTION, bckColor = config.BACKGROUND_COLOR)
 painter.loadMeshes()

@@ -6,8 +6,8 @@ OUTPUT_FOLDER = 'output/pcaCover'
 # either pial (with gyri/sulci) or inflated (smooth)
 BRAIN_TYPE = 'pial'
 
-# either cortical or subcortical
-IMG_TYPE = 'cortical'
+# either cortical-front, cortical-back or subcortical
+IMG_TYPE = 'cortical-back'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],

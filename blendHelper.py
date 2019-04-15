@@ -149,6 +149,71 @@ class CorticalPainter(BrainPainter):
       # print(lampaaa)
 
 
+class CorticalPainterBack(CorticalPainter):
+  def __init__(self, cortFiles):
+    self.cortFiles = cortFiles
+
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          obj.data.materials.append(material)
+        else:
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution):
+
+    scene = bpy.data.scenes["Scene"]
+
+    self.prepareCamera(resolution)
+
+    pi = 3.14159265
+    scene.camera.rotation_euler = (pi / 2, 0, -pi / 2)
+    # Set camera location
+    scene.camera.location = (-71, -15.1, 3.824)
+
+    bpy.data.cameras['Camera'].type = 'ORTHO'
+    bpy.data.cameras['Camera'].ortho_scale = 178
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self):
+
+    energyAll = 5
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    # y + 20
+    lampLocs = [(-80, 70, 72), (-80, -80, -64), (-80, -80, 72), (-80, 70, -64)]
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
+
+
+      # print(lampaaa)
+
+
 class SubcorticalPainter(BrainPainter):
   def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
@@ -195,7 +260,7 @@ class SubcorticalPainter(BrainPainter):
     self.prepareCamera(resolution)
 
     # scene.camera.rotation_euler = (1.15, -0.02, -8.63) # subcort only
-    scene.camera.rotation_euler = (1.1499, -0.01999, -8.2985)  # half-cort hald subcort
+    scene.camera.rotation_euler = (1.1499, -0.01999, -8.2985)  # half-cort half subcort
 
     # Set camera translation
     # scene.camera.location = (-107.3, 66.8, 43.1) # subcort only

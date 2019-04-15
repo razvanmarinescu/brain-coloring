@@ -1,6 +1,7 @@
+# BrainPainter - Brain colouring software 
 
-# INPUT: 
-### csv file with pathology numbers in user-defined range (0-3 here) 
+## INPUT: 
+#### csv file with pathology numbers in user-defined range (0-3 here) 
 
 . |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
@@ -9,19 +10,43 @@ Pathology in Image 2| 1.2 | 0.0 | 3.0 | ..
 Pathology in Image 3| 2.4 | 0.1 | 1.6 | ..
 
 
-# OUTPUT: 
-### cortical + subcortical drawings for each table row:
+## OUTPUT: 
+#### cortical + subcortical drawings for each table row:
 
-Cortical surface           |  Subcortical structures
-:-------------------------:|:-------------------------:
-![Cortical surface](output/pcaCover/cortical_1.png)  |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
+Cortical - front   | Cortical - back   |  Subcortical
+:-------------------------:|:------------------:|:-----------------:
+![Cortical surface](output/pcaCover/cortical-front_1.png) | ![Cortical surface back](output/pcaCover/cortical-back_1.png)   |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
-# Brain colouring software 
+
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
-I plan to publish a paper on this, which can be cited. Until then, I would appreciate if you could include me as a co-author on your paper.
+BrainPainter is a software for colouring brain images using any used-defined input. For each brain region it takes values from a 0-1 (or 0-max), and colours the brain regions according to these numbers. Numbers could represent biomarkers or absolutely anything. 
+
+If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [X]."```, where 
+
+```
+References:
+[X] : BrainPainter software, R.V. Marinescu, https://github.com/mrazvan22/brain-coloring 
+```
 
 License: CC-BY 3.0
+
+
+## Example uses of BrainPainter
+
+<img src="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41467-018-05892-0/MediaObjects/41467_2018_5892_Fig3_HTML.png" alt="Drawings used by Young et al, Nature Comms., 2018" width="600"/>
+
+*Brains used by [Young et al, Nature Comms., 2018](https://www.nature.com/articles/s41467-018-05892-0) *
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+<img src="https://wol-prod-cdn.literatumonline.com/cms/attachment/f34335e4-b7b8-44de-80ee-c5b0a459f309/acn3558-fig-0001-m.jpg" alt="Subcortical regions used by Wijeratne et al, Ann. Clin. Neurol., 2018" width="600"/>
+
+*Subcortical regions used by [Wijeratne et al, Ann. Clin. Neurol., 2018](https://onlinelibrary.wiley.com/doi/full/10.1002/acn3.558)*
+
 
 # Installation using Docker
 
@@ -43,10 +68,13 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
     
     ``` root@e3b175e886db:/# ```
 
-3. Go to the directory and run the make command
+3. Go to the directory and pull the latest changes, if any:
 
     ``` cd /home/brain-coloring/ ```
     
+    ``` git pull origin master```
+    
+4. Generate the brain images using the make command (also see Makefile):
     ``` make ```
     
 If successful, you should see the images in output/pcaCover being updated. 
@@ -88,20 +116,19 @@ Note that this is harder due to the need of installing packages in the python ve
 
 1. Generate the list of pathology numbers according to the format in data/pcaCover.csv. Each row will generate a pair of cortical/subcortical images.
 
-1.1 If using docker, copy your input.csv representing pathology values to the docker container 
+2. If using docker, copy your input.csv representing pathology values to the docker container:
 
-    ``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data```
-
-    Here, replace 9f52258c25f6 with your container-ID, which you can find by running on host:
-
-    ``` 
-    docker ps 
+	``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data ```
+	
+    Here, replace 9f52258c25f6 with your container-ID, which you can find by running ``` docker ps ``` on host:
     
-    CONTAINER ID        IMAGE                      COMMAND     
-    e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
-    ```
+	``` 
+	CONTAINER ID        IMAGE                      COMMAND     
+	e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
+	```
 
-2. change configuration file config.py
+
+3. change configuration file config.py
 	- input file: set to your new input file
 	- brain type: pial or inflated
 	- image type: cortical or subcortical
@@ -109,11 +136,11 @@ Note that this is harder due to the need of installing packages in the python ve
 	- the mapping between your atlas and the 3D brain regions that will be coloured (we use the DK atlas)
 	- image resolution, etc ...
 	
-3. re-generate images using the Makefile command
+4. re-generate images using the Makefile command
 	
 	``` make ```
 
-3.1. If using docker, copy the image out of the docker container to the home directory ~/ :
+5. If using docker, copy the image out of the docker container to the home directory ~/ :
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
 
