@@ -25,8 +25,6 @@ sys.path.append(blendFullPath)
 from blendHelper import *
 import config
 
-
-
 INPUT_FILE = config.INPUT_FILE
 print(INPUT_FILE)
 

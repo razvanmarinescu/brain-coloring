@@ -43,7 +43,7 @@ License: CC-BY 3.0
 &nbsp;
 &nbsp;
 
-<img src="https://wol-prod-cdn.literatumonline.com/cms/attachment/f34335e4-b7b8-44de-80ee-c5b0a459f309/acn3558-fig-0001-m.jpg" alt="Subcortical regions used by Wijeratne et al, Ann. Clin. Neurol., 2018" width="600"/>
+<img src="https://i.imgur.com/3ZlKCd0.jpg" alt="Subcortical regions used by Wijeratne et al, Ann. Clin. Neurol., 2018" width="600"/>
 
 *Subcortical regions used by [Wijeratne et al, Ann. Clin. Neurol., 2018](https://onlinelibrary.wiley.com/doi/full/10.1002/acn3.558)*
 
