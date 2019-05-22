@@ -1,13 +1,13 @@
 # BrainPainter - Brain colouring software 
 
 ## INPUT: 
-#### csv file with pathology numbers in user-defined range (0-3 here) 
+#### csv file with any type of biomarkers in a user-defined range (0-3 here) 
 
-. |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
+Biomarker data |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
-Pathology in Image 1| 0.6 | 2.3 | 1.3 | ..
-Pathology in Image 2| 1.2 | 0.0 | 3.0 | ..
-Pathology in Image 3| 2.4 | 0.1 | 1.6 | ..
+Image 1| 0.6 | 2.3 | 1.3 | ..
+Image 2| 1.2 | 0.0 | 3.0 | ..
+Image 3| 2.4 | 0.1 | 1.6 | ..
 
 
 ## OUTPUT: 
@@ -22,11 +22,20 @@ Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
 BrainPainter is a software for colouring brain images using any used-defined input. For each brain region it takes values from a 0-1 (or 0-max), and colours the brain regions according to these numbers. Numbers could represent biomarkers or absolutely anything. 
 
-If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [X]."```, where 
+If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [ref]."```, where 
 
 ```
 References:
-[X] : BrainPainter software, R.V. Marinescu, https://github.com/mrazvan22/brain-coloring 
+[ref] : R. V. Marinescu, D.C. Alexander, P. Golland, "BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes", arXiv preprint arXiv:1905.08627 (2019). 
+```
+
+```
+@article{marinescu2019brain,
+  title={BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes},
+  author={Marinescu, Razvan and Alexander, Daniel and Golland, Polina},
+  journal={arXiv preprint arXiv:1905.08627},
+  year={2019}
+}
 ```
 
 License: CC-BY 3.0
@@ -50,7 +59,7 @@ License: CC-BY 3.0
 
 # Installation using Docker
 
-In order to remove the need to install blender and it's dependencies, I made a container which has blender and this repository already pre-installed and ready to run.
+In order to remove the need to install blender and it's dependencies, I made a container which has blender and this software already pre-installed and ready to run.
 
 1. Install Docker for your current operating system. For MacOS use this link:
 https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
@@ -72,7 +81,7 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
 
     ``` cd /home/brain-coloring/ ```
     
-    ``` git pull origin master```
+    ``` git pull origin master``` (optional)
     
 4. Generate the brain images using the make command (also see Makefile):
     ``` make ```
@@ -124,14 +133,14 @@ Note that this is harder due to the need of installing packages in the python ve
     
 	``` 
 	CONTAINER ID        IMAGE                      COMMAND     
-	e3b175e886db        mrazvan22/brain-coloring   "/bin/bash"
+	9f52258c25f6        mrazvan22/brain-coloring   "/bin/bash"
 	```
 
 
 3. change configuration file config.py
 	- input file: set to your new input file
 	- brain type: pial or inflated
-	- image type: cortical or subcortical
+	- image type: cortical-front, cortical-back or subcortical
 	- RGB colours to show pathology
 	- the mapping between your atlas and the 3D brain regions that will be coloured (we use the DK atlas)
 	- image resolution, etc ...
