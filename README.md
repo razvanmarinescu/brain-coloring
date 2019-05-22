@@ -22,14 +22,12 @@ Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
 BrainPainter is a software for colouring brain images using any used-defined input. For each brain region it takes values from a 0-1 (or 0-max), and colours the brain regions according to these numbers. Numbers could represent biomarkers or absolutely anything. 
 
-If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [ref]."```, where 
+If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [ref]."```. 
 
 ```
 References:
 [ref] : R. V. Marinescu, D.C. Alexander, P. Golland, "BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes", arXiv preprint arXiv:1905.08627 (2019). 
-```
 
-```
 @article{marinescu2019brain,
   title={BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes},
   author={Marinescu, Razvan and Alexander, Daniel and Golland, Polina},
