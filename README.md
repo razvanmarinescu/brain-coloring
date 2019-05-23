@@ -89,7 +89,7 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
     
 If successful, you should see the images in output/pcaCover being updated. 
 
-# Installation without Docker
+# Installation without Docker (only for advanced users)
 
 Note that this is harder due to the need of installing packages in the python version bundled with blender. 
 
