@@ -1,7 +1,7 @@
 # BrainPainter - Brain colouring software 
 
 ## INPUT: 
-#### csv file with any type of biomarkers in a user-defined range (0-3 here) 
+#### csv file with biomarkers (i.e. numbers) for each brain region, in a user-defined range (0-3 here) 
 
 Biomarker data |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
@@ -21,6 +21,9 @@ Cortical - front   | Cortical - back   |  Subcortical
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
 
 BrainPainter is a software for colouring brain images using any used-defined input. For each brain region it takes values from a 0-1 (or 0-max), and colours the brain regions according to these numbers. Numbers could represent biomarkers or absolutely anything. 
+
+The software is easily customisable -- one can change the colour palette, the type of brain surface, image resolution, etc ... More details below.
+
 
 If you find the software useful, I would appreciate if you could cite it at the end of the figure caption, along these lines: ```"Fig 1. ... Drawings generated using BrainPainter [ref]."```. 
 
