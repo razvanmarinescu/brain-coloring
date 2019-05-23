@@ -1,8 +1,7 @@
 # BrainPainter - Brain colouring software 
 
 ## INPUT: 
-#### csv file with biomarkers (i.e. numbers) for each brain region, in a user-defined range (0-3 here) 
-
+#### csv file with biomarkers (i.e. numbers) for each brain region, in a user-defined range (0-3 here): 0 - white, 1 - orange, 2 - light red 3 - dark red
 Biomarker data |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
 :-------------:|:-----:|:---:|:---:|:---:|
 Image 1| 0.6 | 2.3 | 1.3 | ..
@@ -11,7 +10,7 @@ Image 3| 2.4 | 0.1 | 1.6 | ..
 
 
 ## OUTPUT: 
-#### cortical + subcortical drawings for each table row:
+#### cortical + subcortical drawings for each table row -- each region is coloured according to the numbers above:
 
 Cortical - front   | Cortical - back   |  Subcortical
 :-------------------------:|:------------------:|:-----------------:
