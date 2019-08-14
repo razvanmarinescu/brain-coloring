@@ -2,28 +2,30 @@
 
 
 #import Blender
-import scipy.io
+# import scipy.io
 import bpy
 import numpy as np
-import colorsys
-from abc import ABC, abstractmethod
+# import colorsys
 import os
-import argparse
 import sys
-import glob
 import pandas as pd
-
 
 
 # filename = 'blendCreateSnapshot.py'
 # exec(compile(open('blendCreateSnapshot.py').read(), 'blendCreateSnapshot.py', 'exec'))
 
 blendFullPath = os.path.abspath('.')
-# print(blendFullPath)
 os.chdir(blendFullPath)
 sys.path.append(blendFullPath)
 from blendHelper import *
-import config
+
+# if environment variable configFile is set, read the path from there. Otherwise, load ./config.py
+configFile = os.getenv('configFile', './config.py')
+import importlib.util
+spec = importlib.util.spec_from_file_location("module.name", configFile)
+config = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(config)
+
 
 INPUT_FILE = config.INPUT_FILE
 print(INPUT_FILE)
