@@ -12,9 +12,9 @@ Image 3| 2.4 | 0.1 | 1.6 | ..
 ## OUTPUT: 
 #### cortical + subcortical drawings for each table row -- each region is coloured according to the numbers above:
 
-Cortical - front   | Cortical - back   |  Subcortical
+Cortical - outer   | Cortical - inner   |  Subcortical
 :-------------------------:|:------------------:|:-----------------:
-![Cortical surface](output/pcaCover/cortical-front_1.png) | ![Cortical surface back](output/pcaCover/cortical-back_1.png)   |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
+![Cortical surface](output/pcaCover/cortical-outer_1.png) | ![Cortical surface back](output/pcaCover/cortical-inner_1.png)   |  ![Subcortical structures](output/pcaCover/subcortical_1.png) 
 
 
 Author: Razvan V. Marinescu - razvan@csail.mit.edu
@@ -140,7 +140,7 @@ Note that this is harder due to the need of installing packages in the python ve
 3. change configuration file config.py
 	- input file: set to your new input file
 	- brain type: pial or inflated
-	- image type: cortical-front, cortical-back or subcortical
+	- image type: cortical-outer, cortical-inner or subcortical
 	- RGB colours to show pathology
 	- the mapping between your atlas and the 3D brain regions that will be coloured (we use the DK atlas)
 	- image resolution, etc ...

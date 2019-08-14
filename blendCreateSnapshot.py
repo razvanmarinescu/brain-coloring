@@ -65,15 +65,15 @@ if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
   painter = SubcorticalPainter(cortFilesRight,subcortFiles)
   indexMap = subcortAreasIndexMap
-elif IMG_TYPE == 'cortical-front':
+elif IMG_TYPE == 'cortical-outer':
   #loadCortical(cortFilesAll)
   painter = CorticalPainter(cortFilesAll)
   indexMap = cortAreasIndexMap
-elif IMG_TYPE == 'cortical-back':
-  painter = CorticalPainterBack(cortFilesRight)
+elif IMG_TYPE == 'cortical-inner':
+  painter = CorticalPainterInner(cortFilesRight)
   indexMap = cortAreasIndexMap
 else:
-  raise ValueError('mode has to be either cortical-front, cortical-back or subcortical')
+  raise ValueError('mode has to be either cortical-outer, cortical-inner or subcortical')
 
 painter.prepareScene(resolution=config.RESOLUTION, bckColor = config.BACKGROUND_COLOR)
 painter.loadMeshes()

@@ -149,7 +149,7 @@ class CorticalPainter(BrainPainter):
       # print(lampaaa)
 
 
-class CorticalPainterBack(CorticalPainter):
+class CorticalPainterInner(CorticalPainter):
   def __init__(self, cortFiles):
     self.cortFiles = cortFiles
 
