@@ -40,15 +40,23 @@ IMG_TYPE = config.IMG_TYPE
 
 BRAIN_TYPE = config.BRAIN_TYPE
 
-subcortAreasIndexMap = config.subcortAreasIndexMap
+ATLAS = config.ATLAS
 
-subcortRightAreas = ['Right' + x[4:] for x in subcortAreasIndexMap.keys()]
-subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortAreasIndexMap.values()))
-subcortAreasIndexMap.update(subcortRightAreasIndexMap)
-subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
-subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
+if ATLAS == 'DK':
+  cortAreasIndexMap = config.cortAreasIndexMapDK
+  subcortAreasIndexMap = config.subcortAreasIndexMap
+elif ATLAS == 'Destrieux':
+  cortAreasIndexMap = config.cortAreasIndexMapDestrieux
+  subcortAreasIndexMap = config.subcortAreasIndexMap
+elif ATLAS == 'Tourville':
+  cortAreasIndexMap = config.cortAreasIndexMapTourville
+  subcortAreasIndexMap = config.subcortAreasIndexMap
+elif ATLAS == 'Custom':
+  cortAreasIndexMap = config.cortAreasIndexMapCustom
+  subcortAreasIndexMap = config.subcortAreasIndexMapCustom
+else:
+  raise ValueError('ATLAS has to be either \'DK\', \'Destrieux\', \'Tourville\' or \'Custom\' ')
 
-cortAreasIndexMap = config.cortAreasIndexMap
 cortAreas = cortAreasIndexMap.keys()
 
 cortFilesRight = ['models/DK_atlas_%s/rh.%s.DK.%s.ply' % (BRAIN_TYPE, BRAIN_TYPE, x) for x in cortAreas]
@@ -56,6 +64,16 @@ cortFilesLeft = ['models/DK_atlas_%s/lh.%s.DK.%s.ply' % (BRAIN_TYPE, BRAIN_TYPE,
 cortFilesAll = cortFilesLeft + cortFilesRight
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
 cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values())))
+
+
+
+
+subcortRightAreas = ['Right' + x[4:] for x in subcortAreasIndexMap.keys()]
+subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortAreasIndexMap.values()))
+subcortAreasIndexMap.update(subcortRightAreasIndexMap)
+subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
+subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
+
 
 
 nrSubcortRegions = len(subcortAreas)

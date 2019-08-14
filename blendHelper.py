@@ -337,6 +337,11 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
   objList = bpy.context.selected_objects[::-1]  # make sure to remove the cube from the scene
   # print(objList)
 
+  cols = matDf.columns.to_list()
+  imageNames = matDf.loc[:,'Image-name-unique'].values
+  imageNames = [''.join(n.split(' ')) for n in imageNames] # remove spaces in names
+  matDf = matDf.loc[:,cols[1]:]
+
   for imgIndex in range(matDf.shape[0]):
 
     # for each event get the sum of all the probabilities until the current stage
@@ -378,7 +383,7 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
           print('object not found: %s', obj.name)
 
     # print(adsas)
-    outputFile = '%s/%s_%d.png' % (OUT_FOLDER, IMG_TYPE, imgIndex)
+    outputFile = '%s/%s_%s.png' % (OUT_FOLDER, imageNames[imgIndex], IMG_TYPE)
     print('rendering file %s', outputFile)
     bpy.data.scenes['Scene'].render.filepath = outputFile
     bpy.ops.render.render(write_still=True)
