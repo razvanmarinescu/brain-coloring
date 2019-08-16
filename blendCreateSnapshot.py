@@ -20,7 +20,7 @@ sys.path.append(blendFullPath)
 from blendHelper import *
 
 # if environment variable configFile is set, read the path from there. Otherwise, load ./config.py
-configFile = os.getenv('configFile', './config.py')
+configFile = os.getenv('configFile', './config2.py')
 import importlib.util
 spec = importlib.util.spec_from_file_location("module.name", configFile)
 config = importlib.util.module_from_spec(spec)
@@ -51,6 +51,7 @@ elif ATLAS == 'Destrieux':
 elif ATLAS == 'Tourville':
   cortAreasIndexMap = config.cortAreasIndexMapTourville
   subcortAreasIndexMap = config.subcortAreasIndexMap
+  ATLAS = 'DKT' # actually 3D models are labelled as DKT
 elif ATLAS == 'Custom':
   cortAreasIndexMap = config.cortAreasIndexMapCustom
   subcortAreasIndexMap = config.subcortAreasIndexMapCustom
@@ -58,9 +59,14 @@ else:
   raise ValueError('ATLAS has to be either \'DK\', \'Destrieux\', \'Tourville\' or \'Custom\' ')
 
 cortAreas = cortAreasIndexMap.keys()
+subcortAreasShort = subcortAreasIndexMap.keys()
 
-cortFilesRight = ['models/DK_atlas_%s/rh.%s.DK.%s.ply' % (BRAIN_TYPE, BRAIN_TYPE, x) for x in cortAreas]
-cortFilesLeft = ['models/DK_atlas_%s/lh.%s.DK.%s.ply' % (BRAIN_TYPE, BRAIN_TYPE, x) for x in cortAreas]
+cortRegionsThatShouldBeInTemplate = cortAreasIndexMap.values()
+subcortRegionsThatShouldBeInTemplate = subcortAreasIndexMap.values()
+
+
+cortFilesRight = ['models/%s_atlas_%s/rh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
+cortFilesLeft =  ['models/%s_atlas_%s/lh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
 cortFilesAll = cortFilesLeft + cortFilesRight
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
 cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values())))
@@ -83,24 +89,45 @@ if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
   painter = SubcorticalPainter(cortFilesRight,subcortFiles)
   indexMap = subcortAreasIndexMap
+  areasShort = subcortAreasShort
+  regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'cortical-outer':
   #loadCortical(cortFilesAll)
-  painter = CorticalPainter(cortFilesAll)
+  painter = CorticalPainter(cortFilesRight)
   indexMap = cortAreasIndexMap
+  areasShort = cortAreas
+  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'cortical-inner':
   painter = CorticalPainterInner(cortFilesRight)
   indexMap = cortAreasIndexMap
+  areasShort = cortAreas
+  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 else:
   raise ValueError('mode has to be either cortical-outer, cortical-inner or subcortical')
 
-painter.prepareScene(resolution=config.RESOLUTION, bckColor = config.BACKGROUND_COLOR)
+fov = 50.0
+if BRAIN_TYPE == 'inflated':
+  ortho_scale = 280
+else:
+  ortho_scale = 180
+
+painter.prepareScene(resolution=config.RESOLUTION, bckColor = config.BACKGROUND_COLOR, fov=fov, ortho_scale=ortho_scale, BRAIN_TYPE=BRAIN_TYPE)
 painter.loadMeshes()
 
 
-fileIndex = 0
 matDf = pd.read_csv(INPUT_FILE)
-
 labels = matDf.columns.to_list()
+
+
+regionsThatShouldBeInTemplate = set(regionsThatShouldBeInTemplate) - set([-1])
+print(regionsThatShouldBeInTemplate)
+print(labels)
+missingRegions = list(set(regionsThatShouldBeInTemplate) - set(matDf.columns.to_list()[1:]))
+print(missingRegions)
+if len(missingRegions) > 0:
+  raise ValueError('Regions missing: %s\n\n Make sure the correct atlas is used, see variable ATLAS in config.py. Otherwise add the above missing regions to the input .csv file' % str(missingRegions))
+
+
 print('-------------%s---------', INPUT_FILE)
 colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE)
 

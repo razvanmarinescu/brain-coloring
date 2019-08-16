@@ -36,7 +36,7 @@ class BrainPainter(ABC):
   def loadMeshes(self):
     pass
 
-  def prepareScene(self, resolution, bckColor):
+  def prepareScene(self, resolution, bckColor, fov, ortho_scale, BRAIN_TYPE):
     # delete the cube
     scene = bpy.context.scene
     for ob in scene.objects:
@@ -47,8 +47,8 @@ class BrainPainter(ABC):
     bpy.ops.object.delete()
     bpy.data.worlds['World'].horizon_color = bckColor
 
-    self.setCamera(resolution)
-    self.setLamp()
+    self.setCamera(resolution, fov, ortho_scale, BRAIN_TYPE)
+    self.setLamp(BRAIN_TYPE)
 
   def deletePrevLamps(self):
     scene = bpy.data.scenes["Scene"]
@@ -59,7 +59,7 @@ class BrainPainter(ABC):
     for lamp_data in bpy.data.lamps:
       bpy.data.lamps.remove(lamp_data)
 
-  def prepareCamera(self, resolution):
+  def prepareCamera(self, resolution, fov):
     scene = bpy.data.scenes["Scene"]
 
     # Set render resolution
@@ -67,7 +67,7 @@ class BrainPainter(ABC):
     scene.render.resolution_y = resolution[1]*2
 
     # Set camera fov in degrees
-    fov = 50.0
+
     pi = 3.14159265
     scene.camera.data.angle = fov * (pi / 180.0)
 
@@ -75,11 +75,11 @@ class BrainPainter(ABC):
     scene.camera.rotation_mode = 'XYZ'
 
   @abstractmethod
-  def setCamera(self, resolution):
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
     pass
 
   @abstractmethod
-  def setLamp(self):
+  def setLamp(self, BRAIN_TYPE):
     pass
 
 
@@ -106,22 +106,24 @@ class CorticalPainter(BrainPainter):
           material.alpha = 1
           obj.data.materials.append(material)
 
-  def setCamera(self, resolution):
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
 
     scene = bpy.data.scenes["Scene"]
 
-    self.prepareCamera(resolution)
+    self.prepareCamera(resolution, fov)
 
     pi = 3.14159265
     scene.camera.rotation_euler = (pi / 2, 0, -3 * pi / 2)
     # Set camera location
     scene.camera.location = (167.00, -15.1, 3.824)
+    if BRAIN_TYPE == 'inflated':
+      scene.camera.location = (167.00, -0.3, 3.824)
 
     bpy.data.cameras['Camera'].type = 'ORTHO'
-    bpy.data.cameras['Camera'].ortho_scale = 178
+    bpy.data.cameras['Camera'].ortho_scale = ortho_scale
     bpy.data.cameras['Camera'].clip_end = 1000
 
-  def setLamp(self):
+  def setLamp(self, BRAIN_TYPE):
 
     energyAll = 5
     distanceAll = 1000
@@ -131,6 +133,11 @@ class CorticalPainter(BrainPainter):
 
     lampIndices = [1, 2, 3, 4]
     lampLocs = [(136, 45, 72), (136, -105, -64), (136, -105, 72), (136, 45, -64)]
+    if BRAIN_TYPE == 'inflated':
+      lampIndices = [1, 2, 3, 4, 5]
+      lampLocs = [(136, 160, 130), (136, -140, -64), (136, -140, 130), (136, 160, -64), (136, 0, 130)]
+      energyAll = 13
+
     nrLamps = len(lampIndices)
 
     for l in range(nrLamps):
@@ -170,22 +177,24 @@ class CorticalPainterInner(CorticalPainter):
           material.alpha = 1
           obj.data.materials.append(material)
 
-  def setCamera(self, resolution):
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
 
     scene = bpy.data.scenes["Scene"]
 
-    self.prepareCamera(resolution)
+    self.prepareCamera(resolution, fov)
 
     pi = 3.14159265
     scene.camera.rotation_euler = (pi / 2, 0, -pi / 2)
     # Set camera location
     scene.camera.location = (-71, -15.1, 3.824)
+    if BRAIN_TYPE == 'inflated':
+      scene.camera.location = (-71, -1.3, 3.824)
 
     bpy.data.cameras['Camera'].type = 'ORTHO'
-    bpy.data.cameras['Camera'].ortho_scale = 178
+    bpy.data.cameras['Camera'].ortho_scale = ortho_scale
     bpy.data.cameras['Camera'].clip_end = 1000
 
-  def setLamp(self):
+  def setLamp(self, BRAIN_TYPE):
 
     energyAll = 5
     distanceAll = 1000
@@ -196,6 +205,11 @@ class CorticalPainterInner(CorticalPainter):
     lampIndices = [1, 2, 3, 4]
     # y + 20
     lampLocs = [(-80, 70, 72), (-80, -80, -64), (-80, -80, 72), (-80, 70, -64)]
+    if BRAIN_TYPE == 'inflated':
+      lampIndices = [1, 2, 3, 4, 5]
+      lampLocs = [(-130, 150, 70), (-130, -150, -120), (-130, -150, 70), (-130, 150, -130), (-130, 0, 170), (-90, 0, -90)]
+      energyAll = 11
+
     nrLamps = len(lampIndices)
 
     for l in range(nrLamps):
@@ -254,10 +268,10 @@ class SubcorticalPainter(BrainPainter):
           material.alpha = 1
           obj.data.materials.append(material)
 
-  def setCamera(self, resolution):
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
 
     scene = bpy.data.scenes["Scene"]
-    self.prepareCamera(resolution)
+    self.prepareCamera(resolution, fov)
 
     # scene.camera.rotation_euler = (1.15, -0.02, -8.63) # subcort only
     scene.camera.rotation_euler = (1.1499, -0.01999, -8.2985)  # half-cort half subcort
@@ -268,7 +282,7 @@ class SubcorticalPainter(BrainPainter):
 
     bpy.data.cameras['Camera'].clip_end = 1000
 
-  def setLamp(self):
+  def setLamp(self, BRAIN_TYPE):
 
     energyAll = 7
     distanceAll = 1000
