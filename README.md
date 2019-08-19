@@ -66,7 +66,7 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
 
     Make sure you run the docker deamon after installing. To check if it installer properly, run:
     
-    ``` docker info```
+    ``` sudo docker info```
     
     If prompted to make an account with dockerhub, skip as you don't need one.
 

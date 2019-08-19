@@ -23,7 +23,7 @@ sys.path.append(blendFullPath)
 from blendHelper import *
 
 # if environment variable configFile is set, read the path from there. Otherwise, load ./config.py
-configFile = os.getenv('configFile', './config2.py')
+configFile = os.getenv('configFile', './config.py')
 import importlib.util
 spec = importlib.util.spec_from_file_location("module.name", configFile)
 config = importlib.util.module_from_spec(spec)
