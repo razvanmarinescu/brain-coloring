@@ -1,5 +1,8 @@
 #!BPY
 
+import sys
+print('blender python:', sys.exec_prefix)
+
 
 #import Blender
 # import scipy.io
@@ -7,8 +10,8 @@ import bpy
 import numpy as np
 # import colorsys
 import os
-import sys
 import pandas as pd
+
 
 
 # filename = 'blendCreateSnapshot.py'
