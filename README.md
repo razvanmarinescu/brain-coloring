@@ -92,7 +92,7 @@ If successful, you should see the images in output/pcaCover being updated.
 
 Note that this is harder due to the need of installing packages in the python version bundled with blender. 
 
-1. Install blender
+1. Install blender 2.79 from https://www.blender.org/download/releases/2-79/
 
 2. Pull the git repository: 
 
