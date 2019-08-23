@@ -28,11 +28,10 @@ If you find the software useful, I would appreciate if you could cite it at the 
 
 ```
 References:
-[ref] : R. V. Marinescu, D.C. Alexander, P. Golland, "BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes", arXiv preprint arXiv:1905.08627 (2019). 
 
 @article{marinescu2019brain,
   title={BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes},
-  author={Marinescu, Razvan and Alexander, Daniel and Golland, Polina},
+  author={Marinescu, Razvan and Eshaghi, Arman and Alexander, Daniel and Golland, Polina},
   journal={arXiv preprint arXiv:1905.08627},
   year={2019}
 }
