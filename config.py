@@ -1,7 +1,7 @@
 
-INPUT_FILE = 'input/pcaCover.csv'
+INPUT_FILE = 'input/DK_template.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/pcaCover'
+OUTPUT_FOLDER = 'output/DK_output'
 
 # either 'DK', 'Destrieux', 'Tourville' or 'Custom'
 ATLAS = 'DK'
@@ -29,10 +29,19 @@ BACKGROUND_COLOR = (1,1,1)
 # for luminosity settings, look into blendHelper.py:setLamp()
 
 
+
+
+
 ### Advanced settings, only change if you want to use custom atlas or if you'd like to not color at all some regions #####
 
 # map the names of each 3D cortical structure to be coloured to the name of the structure you have in your atlas.
 # only change the right-hand side values, as the left-hand side are used by blender.
+
+# Common customisations:
+# 1. to completely remove a region from being displayed, remove both the (key,value) pair.
+# 2. to deactivate a region (always color it in default dark gray color), map its value to -1
+
+# NOTE: Always make sure the RHS regions (dict values) below are present in your input .csv file.
 
 ### DK atlas ###
 
