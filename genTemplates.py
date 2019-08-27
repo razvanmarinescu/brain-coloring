@@ -16,6 +16,18 @@ print(files)
 print('desikanKillianyDict',desikanKillianyDict)
 print('\n\n')
 
+# generate template for DK with many entries
+nrBiomk = len(files)
+nrImages = 20
+desikanKillianyDf = pd.DataFrame(index=range(20), columns=['Image-name-unique'] + files)
+for i in range(nrImages):
+  desikanKillianyDf.loc[i,'Image-name-unique'] = 'Image_%d' % i
+  desikanKillianyDf.loc[i,files[0]:] = numpy.random.rand(nrBiomk) * 3
+desikanKillianyDf.to_csv('input/DK_template_many.csv', index=False)
+print(desikanKillianyDf)
+
+asd
+
 # generate template for DK
 nrBiomk = len(files)
 desikanKillianyDf = pd.DataFrame(index=range(2), columns=['Image-name-unique'] + files)
@@ -26,7 +38,7 @@ desikanKillianyDf.loc[1,files[0]:] = numpy.random.rand(nrBiomk) * 3
 desikanKillianyDf.to_csv('input/DK_template.csv', index=False)
 print(desikanKillianyDf)
 
-# asd
+
 
 files = glob.glob('models/Destrieux_atlas_pial/lh.*')
 files = list(np.sort([f.split('.')[3] for f in files])) + subcortFiles
