@@ -1,5 +1,17 @@
 # BrainPainter - Brain colouring software 
 
+<span style="color:red">Sep 2019: BrainPainter can now be run straight from the browser:</span> https://brainpainter.csail.mit.edu/
+
+
+## News
+
+* Aug 2019: In addition to the DK atlas, we now support two more atlases: Destrieux and Trouville. We also support inflated and white-matter surfaces.
+
+* Sept 2019: Our [paper](https://arxiv.org/abs/1905.08627) describing BrainPainter has been invited for an oral presentation at the MICCAI 2019 MBIA workshop in Shenzhen, China.
+
+# 
+
+
 ## INPUT: 
 #### csv file with biomarkers (i.e. numbers) for each brain region, in a user-defined range (0-3 here): 0 - white, 1 - orange, 2 - light red 3 - dark red (colours can be changed)
 Biomarker data |  hippocampus [0-3] | inferior temporal [0-3] | superior parietal [0-3] | ...
@@ -70,7 +82,7 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
     If prompted to make an account with dockerhub, skip as you don't need one.
 
 2. Download the docker image with the bundled blender and brain coloring software using:
-     ``` docker run -it mrazvan22/brain-coloring ```
+     ``` sudo docker run -it mrazvan22/brain-coloring ```
     
     The image size may be large (~1GB), so use a good connection. Note that after the download, it will automatically connect to the container. If it connected successfully, you should see the shell as follows:
     
