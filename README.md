@@ -1,3 +1,16 @@
+Cortical - outer   | Cortical - inner   |  Subcortical
+:-------------------------:|:------------------:|:-----------------:
+![Cortical surface](output/video/outer_small.gif) | ![Cortical surface back](output/video/inner_small.gif)   |  ![Subcortical structures](output/video/subcortical_small.gif) 
+
+*Animation created using BrainPainter, by [Garbarino and Lorenzi, IPMI, 2019](https://arxiv.org/pdf/1901.10545.pdf) *
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+
 # BrainPainter - Brain colouring software 
 
 <span style="color:red">Sep 2019: BrainPainter can now be run straight from the browser:</span> https://brainpainter.csail.mit.edu/
@@ -54,18 +67,6 @@ License: CC-BY 3.0
 
 ## Example uses of BrainPainter
 
-
-Cortical - outer   | Cortical - inner   |  Subcortical
-:-------------------------:|:------------------:|:-----------------:
-![Cortical surface](output/video/outer_small.gif) | ![Cortical surface back](output/video/inner_small.gif)   |  ![Subcortical structures](output/video/subcortical_small.gif) 
-
-*Animation created by [Garbarino and Lorenzi, IPMI, 2019](https://arxiv.org/pdf/1901.10545.pdf) *
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 
 <img src="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41467-018-05892-0/MediaObjects/41467_2018_5892_Fig3_HTML.png" alt="Drawings used by Young et al, Nature Comms., 2018" width="600"/>
 
