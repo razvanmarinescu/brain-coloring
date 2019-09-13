@@ -149,11 +149,11 @@ Note that this is harder due to the need of installing packages in the python ve
 
 # Running the software
 
-1. Generate the list of pathology numbers according to the format in data/DK_template.csv (or any of the other templates there). Each row will generate a pair of cortical/subcortical images.
+1. Create a new DK_myexperiment.csv file with pathology numbers according to the format in input/DK_template.csv (or any of the other templates there). Each row will generate a pair of cortical/subcortical images.
 
-2. If using docker, copy your input.csv representing pathology values to the docker container:
+2. If using docker, copy your DK_myexperiment.csv to the docker container:
 
-	``` sudo docker cp input.csv 9f52258c25f6:/home/brain-coloring/data ```
+	``` sudo docker cp DK_myexperiment.csv 9f52258c25f6:/home/brain-coloring/input ```
 	
     Here, replace 9f52258c25f6 with your container-ID, which you can find by running ``` docker ps ``` on host:
     
@@ -163,9 +163,10 @@ Note that this is harder due to the need of installing packages in the python ve
 	```
 
 
-3. change configuration file config.py
-	- input file: set to your new input file
-	- brain type: pial or inflated
+3. change configuration file config.py:
+	- input file: set to your new input file, input/DK_myexperiment.csv
+    - input folder: set to your new output folder, e.g. output/DK_myexperiment
+	- brain type: pial, inflated or white (white-matter)
 	- image type: cortical-outer, cortical-inner or subcortical
 	- RGB colours to show pathology
 	- the mapping between your atlas and the 3D brain regions that will be coloured (we use the DK atlas)
@@ -177,5 +178,5 @@ Note that this is harder due to the need of installing packages in the python ve
 
 5. If using docker, copy the image out of the docker container to the home directory ~/ :
 
-    ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/pcaCover/cortical_0.png ~/ ```
+    ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/DK_output/Image_1_cortical-outer.png ~/ ```
 

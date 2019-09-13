@@ -16,6 +16,8 @@ IMG_TYPE = 'cortical-outer'
 # e.g. if the range of pathology is [0,3],
 # then you need four colors (the first one is for pathology 0, i.e. no pathology)
 # a pathology at 1.3 will interpolate between the second and third color
+
+# NOTE: you can add more than 4 colours (as many as you want), in which case you should increase the range of the input biomarkers.
 COLORS_RGB = [(1,1,1), (1,1,0), (1,0.4,0), (1,0,0)] # white -> yellow -> orange -> red
 # COLORS_RGB = [(1,1,1), (1,0,0), (1,0,0), (1,0,0)] # white -> red -> red -> red
 
