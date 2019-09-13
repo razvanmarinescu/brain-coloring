@@ -106,12 +106,13 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
 
     ``` cd /home/brain-coloring/ ```
     
-    ``` git pull origin master``` (optional)
+    ``` git pull origin master``` (update to latest changes, if any)
     
 4. Generate the brain images using the make command (also see Makefile):
+
     ``` make ```
     
-If successful, you should see the images in output/pcaCover being updated. 
+If successful, you should see the images in folder output/DK_output/ being updated. For configuring a new experiment, see section "Running the Software" below. 
 
 # Installation without Docker (only for advanced users)
 
@@ -129,7 +130,7 @@ Note that this is harder due to the need of installing packages in the python ve
 
     ``` make ```
 
-    If successful, you should see blender loading the structures and updating the images in output/pcaCover. 
+    If successful, you should see blender loading the structures and updating the images in output/DK_output. 
 
 4. If running on MacOS, blender might not be added to your path. In this case, run (change the path/to/blender to your installation location):
 
@@ -148,7 +149,7 @@ Note that this is harder due to the need of installing packages in the python ve
 
 # Running the software
 
-1. Generate the list of pathology numbers according to the format in data/pcaCover.csv. Each row will generate a pair of cortical/subcortical images.
+1. Generate the list of pathology numbers according to the format in data/DK_template.csv (or any of the other templates there). Each row will generate a pair of cortical/subcortical images.
 
 2. If using docker, copy your input.csv representing pathology values to the docker container:
 
