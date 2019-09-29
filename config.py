@@ -83,8 +83,8 @@ cortAreasIndexMapDK = {
   'superiortemporal':'superiortemporal',
   'supramarginal':'supramarginal',
   'temporalpole':'temporalpole',
-  'transversetemporal':'transversetemporal',
-  'unknown':-1 # -1 means do not color this region (defaults to gray color)
+  'transversetemporal':'transversetemporal'
+  # 'unknown':-1 # -1 means do not color this region (defaults to gray color)
 }
 
 
@@ -165,7 +165,8 @@ cortAreasIndexMapDestrieux = {'G_Ins_lg_and_S_cent_ins': 'G_Ins_lg_and_S_cent_in
   'S_temporal_inf': 'S_temporal_inf',
   'S_temporal_sup': 'S_temporal_sup',
   'S_temporal_transverse': 'S_temporal_transverse',
-  'Unknown': 'Unknown'}
+  # 'Unknown': 'Unknown'
+}
 
 
 ### Tourville atlas ###
@@ -203,7 +204,8 @@ cortAreasIndexMapTourville = {
   'superiortemporal': 'superiortemporal',
   'supramarginal': 'supramarginal',
   'transversetemporal': 'transversetemporal',
-  'unknown': 'unknown'}
+  # 'unknown': 'unknown'
+}
 
 
 
@@ -246,7 +248,8 @@ cortAreasIndexMapCustom = {
   'supramarginal':'supramarginal',
   'temporalpole':'temporal pole',
   'transversetemporal':'planum temporale',
-  'unknown':-1}
+  # 'unknown':-1
+}
 
 
 # Subcortical areas

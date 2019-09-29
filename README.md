@@ -22,7 +22,7 @@ Cortical - outer   | Cortical - inner   |  Subcortical
 
 * Aug 2019: In addition to the DK atlas, we now support two more atlases: Destrieux and Trouville. We also support inflated and white-matter surfaces.
 
-# 
+#
 
 
 ## INPUT: 
