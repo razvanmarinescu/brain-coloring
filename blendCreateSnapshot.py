@@ -106,7 +106,7 @@ elif IMG_TYPE == 'cortical-inner':
 else:
   raise ValueError('mode has to be either cortical-outer, cortical-inner or subcortical')
 
-if requestFromWebsite in config.keys():
+if 'requestFromWebsite' in config.keys():
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate + subcortRegionsThatShouldBeInTemplate
 
 fov = 50.0
