@@ -7,6 +7,7 @@ import os
 import argparse
 import sys
 import glob
+import sys
 
 def getInterpColor(abn_level, COLOR_POINTS):
   # given an abnormality level, it computes the associated color
@@ -395,11 +396,12 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
             # obj.data.materials.append(material)
 
         else:
-          print('object not found: %s', obj.name)
+          print('object not found: %s' % obj.name)
 
     # print(adsas)
-    outputFile = '%s/%s_%s.png' % (OUT_FOLDER, imageNames[imgIndex], IMG_TYPE)
-    print('rendering file %s', outputFile)
+    outputFile = '%s/%s_%s.png' % (OUT_FOLDER, IMG_TYPE, imageNames[imgIndex])
+    print('rendering file %s' % outputFile)
     bpy.data.scenes['Scene'].render.filepath = outputFile
     bpy.ops.render.render(write_still=True)
+    sys.stdout.flush()
 

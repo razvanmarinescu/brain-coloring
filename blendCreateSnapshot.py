@@ -106,9 +106,6 @@ elif IMG_TYPE == 'cortical-inner':
 else:
   raise ValueError('mode has to be either cortical-outer, cortical-inner or subcortical')
 
-if 'requestFromWebsite' in config.keys():
-  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate + subcortRegionsThatShouldBeInTemplate
-
 fov = 50.0
 if BRAIN_TYPE == 'inflated':
   ortho_scale = 280
@@ -127,6 +124,6 @@ painter.prepareScene(resolution=config.RESOLUTION, bckColor = config.BACKGROUND_
 painter.loadMeshes()
 
 
-print('-------------%s---------', INPUT_FILE)
+print('-------------%s---------' % INPUT_FILE)
 colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE)
 

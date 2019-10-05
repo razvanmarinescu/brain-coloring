@@ -26,7 +26,6 @@ for i in range(nrImages):
 desikanKillianyDf.to_csv('input/DK_template_many.csv', index=False)
 print(desikanKillianyDf)
 
-asd
 
 # generate template for DK
 nrBiomk = len(files)
