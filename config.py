@@ -1,7 +1,7 @@
 
-INPUT_FILE = 'input/DK_template.csv' # input template should match ATLAS below
+INPUT_FILE = 'input/DK_template_movie.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/DK_output'
+OUTPUT_FOLDER = 'output/DK_movie'
 
 # either 'DK', 'Destrieux', 'Tourville' or 'Custom'
 ATLAS = 'DK'
