@@ -355,6 +355,7 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
   cols = matDf.columns.to_list()
   imageNames = matDf.loc[:,'Image-name-unique'].values
 
+  imageNames = [str(n) for n in imageNames] # ensure names are strings
   imageNames = [''.join(n.split(' ')) for n in imageNames] # remove spaces in names
   matDf = matDf.loc[:,cols[1]:]
 
