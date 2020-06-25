@@ -33,7 +33,7 @@ def checkInputDf(matDf, regionsThatShouldBeInTemplate, getErrorAsStr=False):
   if len(missingRegions) > 0:
     return outputError('The following regions are missing from the input .csv file: %s\n\n Make sure the correct atlas is '
                      'used, and double check the example template corresponding to that atlas.'
-                     'Note that, currently, all regions from the template need to be assigned a number mapping to a color.'
+                     ' Note that, currently, all regions from the template need to be assigned a number mapping to a color.'
                      % str(missingRegions) + colorTip, getErrorAsStr)
 
 
