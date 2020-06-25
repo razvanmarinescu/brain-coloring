@@ -118,7 +118,7 @@ If successful, you should see the images in folder output/DK_output/ being updat
 
 Note that this is harder due to the need of installing packages in the python version bundled with blender. 
 
-1. Install blender 2.79 from https://www.blender.org/download/releases/2-79/
+1. Install blender 2.8 from https://www.blender.org
 
 2. Pull the git repository: 
 
@@ -134,14 +134,14 @@ Note that this is harder due to the need of installing packages in the python ve
 
 4. If running on MacOS, blender might not be added to your path. In this case, run (change the path/to/blender to your installation location):
 
-    ``` sudo /Applications/Blender/blender.app/Contents/MacOS/blender --background --python blendCreateSnapshot.py ```
+    ``` /Applications/Blender/blender.app/Contents/MacOS/blender --background --python blendCreateSnapshot.py ```
 
-5. If python libraries are missing, install them using: 
+5. Install packages in the *python environment bundled with blender*. Luckily, from blender 2.8 pip is already included in blender's python. We then just do:  
 
-    ``` pip3 install scipy ```
-    ``` pip3 install numpy ```
+    ``` /Applications/Blender.app/Contents/Resources/2.83/python/bin/python3.7m -m pip install -U pandas numpy scipy```
 
-    If the same error is obtained even after installing, it's probably because the packages are installed in the default system-wide python instead of the local python. See this answer for how to fix this:
+
+    Also see this answer for more information:
     
     https://blender.stackexchange.com/questions/5287/using-3rd-party-python-modules
     

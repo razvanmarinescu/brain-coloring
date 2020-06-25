@@ -1,5 +1,5 @@
 
-INPUT_FILE = 'input/DK_template_movie.csv' # input template should match ATLAS below
+INPUT_FILE = 'input/DK_pallidium.csv' # input template should match ATLAS below
 
 OUTPUT_FOLDER = 'output/DK_movie'
 
