@@ -147,6 +147,8 @@ Note that this is harder due to the need of installing packages in the python ve
     
     Note: do not install the bpy package, as it comes automatically with the blender-bundled python
 
+6. Note that BrainPainter was developed using blender 2.79. Blender 2.8 has created some braking changes, which you can easily fix: e.g. change object.select = True to object.select_set(state=True)
+
 # Running the software
 
 1. Create a new DK_myexperiment.csv file with pathology numbers according to the format in input/DK_template.csv (or any of the other templates there). Each row will generate a pair of cortical/subcortical images.

@@ -26,7 +26,7 @@ def getInterpColor(abn_level, COLOR_POINTS):
   # hue - 120 green 80 - yellow 40 - orange 0 -red
   rgb_color = (1-abn_level)*COLOR_POINTS[sigmaLevel] + abn_level*COLOR_POINTS[sigmaLevel+1]
 
-  return rgb_color
+  return (*rgb_color, 1)
 
 def nZeroOne(a):
   return not (a == 0 or a == 1)
@@ -42,11 +42,14 @@ class BrainPainter(ABC):
     scene = bpy.context.scene
     for ob in scene.objects:
       if ob.type == 'MESH' and ob.name.startswith("Cube"):
-        ob.select = True
+        #ob.select = True # blender 2.79
+        ob.select_set(state=True) # blender 2.8
       else:
-        ob.select = False
+        #ob.select = False
+        ob.select_set(state=False)
+
     bpy.ops.object.delete()
-    bpy.data.worlds['World'].horizon_color = bckColor
+    bpy.data.worlds['World'].color = bckColor
 
     self.setCamera(resolution, fov, ortho_scale, BRAIN_TYPE)
     self.setLamp(BRAIN_TYPE)
@@ -54,11 +57,12 @@ class BrainPainter(ABC):
   def deletePrevLamps(self):
     scene = bpy.data.scenes["Scene"]
     for key in [k for k in scene.objects.keys() if k.startswith('Lamp')]:
-      scene.objects[key].select = True
+      #scene.objects[key].select = True
+      scene.objects[key].select_set(state=True)
     bpy.ops.object.delete()
 
-    for lamp_data in bpy.data.lamps:
-      bpy.data.lamps.remove(lamp_data)
+    for lamp_data in bpy.data.lights:
+      bpy.data.lights.remove(lamp_data)
 
   def prepareCamera(self, resolution, fov):
     scene = bpy.data.scenes["Scene"]
@@ -99,7 +103,7 @@ class CorticalPainter(BrainPainter):
       for obj in bpy.context.selected_objects:
         regionName = obj.name
         if not 'mat_%s' % regionName in bpy.data.materials.keys():
-          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3, 1.0), (1, 1, 1), 1.0)
           obj.data.materials.append(material)
         else:
           material = bpy.data.materials['mat_%s' % regionName]
@@ -129,7 +133,8 @@ class CorticalPainter(BrainPainter):
     energyAll = 5
     distanceAll = 1000
 
-    scene = bpy.data.scenes["Scene"]
+    #scene = bpy.data.scenes["Scene"]
+    scene = bpy.context.collection
     self.deletePrevLamps()
 
     lampIndices = [1, 2, 3, 4]
@@ -143,7 +148,7 @@ class CorticalPainter(BrainPainter):
 
     for l in range(nrLamps):
       # Create new lamp datablock
-      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      lamp_data = bpy.data.lights.new(name="lamp%d data" % lampIndices[l], type='POINT')
       # Create new object with our lamp datablock
       lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
       # Link lamp object to the scene so it'll appear in this scene
@@ -170,7 +175,7 @@ class CorticalPainterInner(CorticalPainter):
       for obj in bpy.context.selected_objects:
         regionName = obj.name
         if not 'mat_%s' % regionName in bpy.data.materials.keys():
-          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3, 1.0), (1, 1, 1), 1.0)
           obj.data.materials.append(material)
         else:
           material = bpy.data.materials['mat_%s' % regionName]
@@ -215,7 +220,7 @@ class CorticalPainterInner(CorticalPainter):
 
     for l in range(nrLamps):
       # Create new lamp datablock
-      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      lamp_data = bpy.data.lights.new(name="lamp%d data" % lampIndices[l], type='POINT')
       # Create new object with our lamp datablock
       lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
       # Link lamp object to the scene so it'll appear in this scene
@@ -244,13 +249,14 @@ class SubcorticalPainter(BrainPainter):
       for obj in bpy.context.selected_objects:
         regionName = obj.name
         if not 'mat_%s' % regionName in bpy.data.materials.keys():
-          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 0.1)
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3, 0.1), (1, 1, 1), 0.1)
           obj.data.materials.append(material)
         else:
           bpy.data.materials['mat_%s' % regionName].diffuse_color = (0.3, 0.3, 0.3)
           bpy.data.materials['mat_%s' % regionName].alpha = 1
 
-        obj.select = False
+        #obj.select = False
+        obj.select_set(state = False)
 
     # import subcortical regions
     for i in range(len(self.subcortFiles)):
@@ -260,7 +266,7 @@ class SubcorticalPainter(BrainPainter):
       for obj in bpy.context.selected_objects:
         regionName = obj.name
         if not 'mat_%s' % regionName in bpy.data.materials.keys():
-          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1)
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3, 1), (1, 1, 1), 1)
           obj.data.materials.append(material)
         else:
           # assert(False)
@@ -288,7 +294,8 @@ class SubcorticalPainter(BrainPainter):
     energyAll = 7
     distanceAll = 1000
 
-    scene = bpy.data.scenes["Scene"]
+    #scene = bpy.data.scenes["Scene"]
+    scene = bpy.context.collection
     self.deletePrevLamps()
 
     lampIndices = [1, 2]
@@ -298,7 +305,7 @@ class SubcorticalPainter(BrainPainter):
 
     for l in range(nrLamps):
       # Create new lamp datablock
-      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      lamp_data = bpy.data.lights.new(name="lamp%d data" % lampIndices[l], type='POINT')
       # Create new object with our lamp datablock
       lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
       # Link lamp object to the scene so it'll appear in this scene
@@ -315,11 +322,14 @@ def delobj():
     if ob.type == 'MESH' and (
           ob.name.startswith("Left") or ob.name.startswith("Right") or ob.name.startswith('lh.') or ob.name.startswith(
       'rh.')):
-      ob.select = True
+      #ob.select = True
+      ob.select_set(state=True)
     else:
-      ob.select = False
+      #ob.select = False
+      ob.select_set(state=False)
     if ob.name.startswith('Lamp'):
-      ob.select = True
+      #ob.select = True
+      ob.select_set(state=True)
   bpy.ops.object.delete()
   bpy.ops.object.material_slot_remove()
   for material in bpy.data.materials:
@@ -330,15 +340,15 @@ def delobj():
 def makeMaterial(name, diffuse, specular, alpha):
   mat = bpy.data.materials.new(name)
   mat.diffuse_color = diffuse
-  mat.diffuse_shader = 'LAMBERT'
-  mat.diffuse_intensity = 1.0
+  #mat.diffuse_shader = 'LAMBERT'
+  #mat.diffuse_intensity = 1.0
   mat.specular_color = specular
-  mat.specular_shader = 'COOKTORR'
-  mat.specular_intensity = 0.2
-  mat.alpha = alpha
-  mat.ambient = 1
-  mat.use_transparency = True
-  mat.use_shadows = False
+  #mat.specular_shader = 'COOKTORR'
+  #mat.specular_intensity = 0.2
+  #mat.alpha = alpha
+  #mat.ambient = 1
+  #mat.use_transparency = True
+  #mat.use_shadows = False
   return mat
 
 

@@ -1,7 +1,7 @@
 
 INPUT_FILE = 'input/DK_pallidium.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/DK_movie'
+OUTPUT_FOLDER = 'output/DK_pallidum'
 
 # either 'DK', 'Destrieux', 'Tourville' or 'Custom'
 ATLAS = 'DK'
@@ -10,7 +10,7 @@ ATLAS = 'DK'
 BRAIN_TYPE = 'pial'
 
 # either cortical-outer, cortical-inner or subcortical
-IMG_TYPE = 'cortical-outer'
+IMG_TYPE = 'subcortical'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
