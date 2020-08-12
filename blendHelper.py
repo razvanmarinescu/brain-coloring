@@ -415,3 +415,141 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
     bpy.ops.render.render(write_still=True)
     sys.stdout.flush()
 
+
+def createLatex(NR_MATRICES, NR_STAGES, NR_EVENTS,
+  mats, MAT_NAMES, SNAP_STAGES, nonZtoZMap, blobsNonZNrs, blobsNames,
+  NR_SIGN_LEVELS, COLOR_POINTS, NR_BALLS, BALL_COORDS, blobsLabels):
+  eventsAbnormalityAll = np.zeros([NR_MATRICES, NR_STAGES, NR_EVENTS], float)
+  text = r'''
+\documentclass[11pt,a4paper,oneside]{report}
+
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{plotmarks}
+\usepackage{amsmath,graphicx}
+\usepackage{epstopdf}
+\usepackage[font=normal,labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{scalefnt}
+
+% margin size
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+\belowdisplayskip=12pt plus 3pt minus 9pt
+\belowdisplayshortskip=7pt plus 3pt minus 4pt
+
+% scale parameter for the circles and the gradient
+\tikzset{every picture/.append style={scale=0.5}}
+% scale parameter for the upper and lower small brain images
+\newcommand*{\scaleBrainImg}{0.1}'''
+
+  for matrixIndex in range(NR_MATRICES):
+    matrix = mats[matrixIndex]
+
+    for stageIndex in range(NR_STAGES):
+      # for each event get the sum of all the probabilities until the current stage
+      eventsAbnormality = np.sum(matrix[:, :SNAP_STAGES[stageIndex]], 1)
+
+      assert (len(eventsAbnormality) == NR_EVENTS)
+      eventsAbnormalityAll[matrixIndex, stageIndex, :] = eventsAbnormality
+
+      for ballIndex, blobNZNr in enumerate(blobsNonZNrs):
+        indicesZ = nonZtoZMap[blobNZNr]
+        # abnormality values for each significance levels
+        signifAbnorm = [eventsAbnormality[x] for x in indicesZ]
+        print("blobName", blobsNames[ballIndex], blobNZNr, indicesZ, signifAbnorm)
+        print('nonZtoZMap', nonZtoZMap)
+
+        # colors for each significance levels
+        signifColor = [getInterpColor(signifAbnorm[sigmaLevel - 1], sigmaLevel,
+          NR_SIGN_LEVELS, COLOR_POINTS) for sigmaLevel in
+                       range(1, len(signifAbnorm) + 1)]
+
+        finalColor = assignColor(signifAbnorm, signifColor, NR_SIGN_LEVELS, COLOR_POINTS)
+        # print(finalColor)
+
+        text += r'''
+\definecolor{col''' + "%d%d%d" % (
+          matrixIndex, stageIndex, ballIndex) + '''}{rgb}{''' + '%.3f,%.3f,%.3f' % (finalColor[0], finalColor[1], finalColor[2]) + '''}'''
+
+  text += '''\n\n '''
+
+
+  for matrixIndex in range(NR_MATRICES):
+    matrix = mats[matrixIndex]
+
+    text += r'''
+
+\begin{figure}[H]
+  \centering'''
+    for stageIndex in range(NR_STAGES):
+
+      # for each event get the sum of all the probabilities until the current stage
+      eventsAbnormality = np.sum(matrix[:,:SNAP_STAGES[stageIndex]],1)
+
+      assert(len(eventsAbnormality) == NR_EVENTS)
+      eventsAbnormalityAll[matrixIndex, stageIndex, :] = eventsAbnormality
+
+      text += r'''
+        %\begin{subfigure}[b]{0.15\textwidth}
+      \begin{tikzpicture}[scale=1.0,auto,swap]
+
+      % the two brain figures on top
+      \node (cortical_brain) at (0,1.5) { \includegraphics*[scale=\scaleBrainImg,trim=0 0 0 0]{'''
+
+      text += '%s/cortical_stage%d.png' % (MAT_NAMES[matrixIndex], SNAP_STAGES[stageIndex]) + r'''}};
+      \node (subcortical_brain) at (0,-1.5) { \includegraphics*[scale=\scaleBrainImg,trim=0 0 0 0]{'''
+      text += '%s/subcortical_stage%d.png' % (MAT_NAMES[matrixIndex], SNAP_STAGES[stageIndex]) + r'''}};
+      '''
+      text += r'''\node (stage) at (0, 3.4) {Stage ''' + "%d" % SNAP_STAGES[stageIndex] + r'''};
+      '''
+
+      for ballIndex in range(NR_BALLS):
+        text += '''\draw[fill=''' + "col%d%d%d" % (
+        matrixIndex, stageIndex, ballIndex) + "] (%1.1f,%1.1f)" % (BALL_COORDS[ballIndex][0], BALL_COORDS[ballIndex][1]) + \
+        ''' circle [radius=0.33cm] node {\scriptsize ''' + "%s" % blobsLabels[ballIndex] + '''};
+          '''
+
+      text += r'''\end{tikzpicture}
+    %\end{subfigure}
+    % next subfigure
+    \hspace{-1.5em}
+    ~'''
+
+    upperLimitGradient = 6
+    lowerLimitGradient = 0
+    chunkLen = ((upperLimitGradient - lowerLimitGradient)/NR_SIGN_LEVELS)
+    text += r'''
+  \hspace{1em}
+  % the red-to-yellow gradient on the right
+  \begin{tikzpicture}[scale=1.1,auto,swap]
+    \colorlet{redhsb}[hsb]{red}%
+    \colorlet{bluehsb}[hsb]{blue}%
+    \colorlet{yellowhsb}[hsb]{yellow}%
+    \colorlet{orangehsb}[hsb]{orange}%
+    \colorlet{magentahsb}[hsb]{magenta}%
+    \shade[bottom color=white,top color=red] (0,0) rectangle (0.5,2.01); % bottom rectangle
+    \shade[bottom color=red,top color=magenta] (0,2) rectangle (0.5,4.01);
+    \shade[bottom color=magenta,top color=blue] (0,4) rectangle (0.5,6); % top rectangle
+'''
+    sigmaLabels = ['normal', '2-sigma', '3-sigma', '5-sigma']
+    for s in range(NR_SIGN_LEVELS+1):
+      text += "\n    \draw (0,%d) -- (0.5,%d);" % (s*chunkLen, s*chunkLen)
+      text += r'''\node[inner sep=0] (corr_text) at (1.7,''' + str(s*chunkLen) + r''') {''' + sigmaLabels[s] + r'''};
+'''
+    text += r'''
+  \end{tikzpicture}
+  \caption{''' + " ".join(MAT_NAMES[matrixIndex].split("_")) +'''}
+\end{figure}
+'''
+
+  text += r'''
+\end{document}
+
+'''
+
+  return text
