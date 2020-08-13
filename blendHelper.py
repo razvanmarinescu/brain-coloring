@@ -224,7 +224,7 @@ class CorticalPainterInner(CorticalPainter):
       # Create new object with our lamp datablock
       lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
       # Link lamp object to the scene so it'll appear in this scene
-      scene.objects.link(lamp)
+      scene.collection.objects.link(lamp)
       # Place lamp to a specified location
       scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
       lamp_data.energy = energyAll

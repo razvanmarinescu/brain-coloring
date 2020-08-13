@@ -1,7 +1,7 @@
 
-INPUT_FILE = 'input/DK_pallidium.csv' # input template should match ATLAS below
+INPUT_FILE = 'input/DK_template.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/DK_pallidum'
+OUTPUT_FOLDER = 'output/DK_output'
 
 # either 'DK', 'Destrieux', 'Tourville' or 'Custom'
 ATLAS = 'DK'
@@ -10,7 +10,7 @@ ATLAS = 'DK'
 BRAIN_TYPE = 'pial'
 
 # either cortical-outer, cortical-inner or subcortical
-IMG_TYPE = 'subcortical'
+IMG_TYPE = 'cortical-outer'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
@@ -25,7 +25,7 @@ COLORS_RGB = [(1,1,1), (1,1,0), (1,0.4,0), (1,0,0)] # white -> yellow -> orange 
 RESOLUTION = (1200, 900)
 
 # default is white
-BACKGROUND_COLOR = (1,1,1)
+BACKGROUND_COLOR = (1, 1, 1)
 
 # to change camera viewing angle and other advanced settings, look into blendHelper.py:setCamera()
 # for luminosity settings, look into blendHelper.py:setLamp()
