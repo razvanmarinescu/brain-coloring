@@ -124,25 +124,14 @@ painter.prepareScene(resolution=config.RESOLUTION, bckColor = config.BACKGROUND_
 painter.loadMeshes()
 
 
-print('-------------%s---------' % INPUT_FILE)
+print('-------------%s-------------' % INPUT_FILE)
 colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE)
 
 
-# generate latex and write it to file
-inputFile = INPUT_FILES_SHORT[fileIndex]
-outFolderCurrMat = '%s/%s' % (OUT_FOLDER, inputFile)
-text = createLatex(NR_MATRICES, NR_STAGES, NR_EVENTS,
-mats, MAT_NAMES, SNAP_STAGES, nonZtoZMap, blobsNonZNrs, blobsNames,
-  NR_SIGN_LEVELS, COLOR_POINTS, NR_BALLS, BALL_COORDS, blobsLabels)
-#print(text)
+# outFolderCurrMat = '%s' % (OUT_FOLDER.rsplit('/', 1)[0])
+outFolderCurrMat = '%s' % OUT_FOLDER
+text = genLaTex(INPUT_FILE, OUT_FOLDER)
 os.system('mkdir -p %s' % outFolderCurrMat)
-out = open('%s/gen.tex' % outFolderCurrMat, 'w')
+out = open('%s/report.tex' % outFolderCurrMat, 'w')
 out.write(text)
 out.close()
-#os.system("cd %s && xelatex %s" % (outFileName.split("/")[0], outFileName.split("/")[1] ))
-# os.system("cd %s && pdflatex %s" % (outFileName.split("/")[0], outFileName.split("/")[1] ))
-
-# print(adas)
-colorRegionsAndRender(indexMapCurr, NR_MATRICES, NR_STAGES, NR_EVENTS,
-mats, MAT_NAMES, SNAP_STAGES, nonZtoZMap, NR_SIGN_LEVELS, COLOR_POINTS, OUT_FOLDER, inputFile, IMG_TYPE)
-

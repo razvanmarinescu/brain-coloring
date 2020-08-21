@@ -1,6 +1,7 @@
 import scipy.io
 import bpy
 import numpy as np
+import pandas as pd
 import colorsys
 from abc import ABC, abstractmethod
 import os
@@ -224,7 +225,7 @@ class CorticalPainterInner(CorticalPainter):
       # Create new object with our lamp datablock
       lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
       # Link lamp object to the scene so it'll appear in this scene
-      scene.objects.link(lamp)
+      scene.collection.objects.link(lamp)
       # Place lamp to a specified location
       scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
       lamp_data.energy = energyAll
@@ -415,14 +416,9 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
     bpy.ops.render.render(write_still=True)
     sys.stdout.flush()
 
-
-def createLatex(NR_MATRICES, NR_STAGES, NR_EVENTS,
-  mats, MAT_NAMES, SNAP_STAGES, nonZtoZMap, blobsNonZNrs, blobsNames,
-  NR_SIGN_LEVELS, COLOR_POINTS, NR_BALLS, BALL_COORDS, blobsLabels):
-  eventsAbnormalityAll = np.zeros([NR_MATRICES, NR_STAGES, NR_EVENTS], float)
-  text = r'''
-\documentclass[11pt,a4paper,oneside]{report}
-
+def genLaTex(inputFile, outputFolder): # PARAMS: input folder, output folder, ?=scale
+  tex = r'''
+\documentclass[11pt,a4paper]{report}
 \usepackage{float}
 \usepackage{tikz}
 \usetikzlibrary{plotmarks}
@@ -437,119 +433,63 @@ def createLatex(NR_MATRICES, NR_STAGES, NR_EVENTS,
 
 % margin size
 \usepackage[margin=1in]{geometry}
+%\documentclass[border=2pt,tikz]{standalone}
+\usetikzlibrary{positioning}
 
-\begin{document}
-\belowdisplayskip=12pt plus 3pt minus 9pt
-\belowdisplayshortskip=7pt plus 3pt minus 4pt
+\begin{document}'''
+  INPUT_FILE = inputFile
+  matDf = pd.read_csv(INPUT_FILE) # reading in image names from input
+  directory = "."
+  extension = ".png"
+  output_folder = os.listdir(outputFolder) 
+  # filtering output folder for png's
+  img_files = [file for file in output_folder if file.lower().endswith(extension)] 
+  img_path_groups = [] # grouping images together
+  imageNames = matDf.loc[:,'Image-name-unique'].values # getting image name values
+  imageNames = [''.join(n.split(' ')) for n in imageNames] # remove spaces in names
 
-% scale parameter for the circles and the gradient
-\tikzset{every picture/.append style={scale=0.5}}
-% scale parameter for the upper and lower small brain images
-\newcommand*{\scaleBrainImg}{0.1}'''
+  for i in imageNames:
+    # grouping the images by csv name
+    latex_group = [file for file in output_folder if file.endswith(i + extension)] 
+    img_path_groups.append(latex_group)
 
-  for matrixIndex in range(NR_MATRICES):
-    matrix = mats[matrixIndex]
+  for img_path in range(len(img_path_groups)):
+    # adding parent tikzpictures
+    tex+= r'''\tikzset{block/.style={node distance=-1pt, line width=1pt}}
+\begin{tikzpicture}
+\centering
+'''
+    for img in range(len(img_path_groups[img_path])): 
+      # adding image nodes
+      if(img==0): # positioning for first image
+        position = r''' \node[block] (0) {\includegraphics[scale=0.03]{./''' 
+      else: 
+        position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=0.03]{./'''
+      tex+= position + img_path_groups[img_path][img] + r'''}};
+      ''' 
 
-    for stageIndex in range(NR_STAGES):
-      # for each event get the sum of all the probabilities until the current stage
-      eventsAbnormality = np.sum(matrix[:, :SNAP_STAGES[stageIndex]], 1)
-
-      assert (len(eventsAbnormality) == NR_EVENTS)
-      eventsAbnormalityAll[matrixIndex, stageIndex, :] = eventsAbnormality
-
-      for ballIndex, blobNZNr in enumerate(blobsNonZNrs):
-        indicesZ = nonZtoZMap[blobNZNr]
-        # abnormality values for each significance levels
-        signifAbnorm = [eventsAbnormality[x] for x in indicesZ]
-        print("blobName", blobsNames[ballIndex], blobNZNr, indicesZ, signifAbnorm)
-        print('nonZtoZMap', nonZtoZMap)
-
-        # colors for each significance levels
-        signifColor = [getInterpColor(signifAbnorm[sigmaLevel - 1], sigmaLevel,
-          NR_SIGN_LEVELS, COLOR_POINTS) for sigmaLevel in
-                       range(1, len(signifAbnorm) + 1)]
-
-        finalColor = assignColor(signifAbnorm, signifColor, NR_SIGN_LEVELS, COLOR_POINTS)
-        # print(finalColor)
-
-        text += r'''
-\definecolor{col''' + "%d%d%d" % (
-          matrixIndex, stageIndex, ballIndex) + '''}{rgb}{''' + '%.3f,%.3f,%.3f' % (finalColor[0], finalColor[1], finalColor[2]) + '''}'''
-
-  text += '''\n\n '''
-
-
-  for matrixIndex in range(NR_MATRICES):
-    matrix = mats[matrixIndex]
-
-    text += r'''
-
-\begin{figure}[H]
-  \centering'''
-    for stageIndex in range(NR_STAGES):
-
-      # for each event get the sum of all the probabilities until the current stage
-      eventsAbnormality = np.sum(matrix[:,:SNAP_STAGES[stageIndex]],1)
-
-      assert(len(eventsAbnormality) == NR_EVENTS)
-      eventsAbnormalityAll[matrixIndex, stageIndex, :] = eventsAbnormality
-
-      text += r'''
-        %\begin{subfigure}[b]{0.15\textwidth}
-      \begin{tikzpicture}[scale=1.0,auto,swap]
-
-      % the two brain figures on top
-      \node (cortical_brain) at (0,1.5) { \includegraphics*[scale=\scaleBrainImg,trim=0 0 0 0]{'''
-
-      text += '%s/cortical_stage%d.png' % (MAT_NAMES[matrixIndex], SNAP_STAGES[stageIndex]) + r'''}};
-      \node (subcortical_brain) at (0,-1.5) { \includegraphics*[scale=\scaleBrainImg,trim=0 0 0 0]{'''
-      text += '%s/subcortical_stage%d.png' % (MAT_NAMES[matrixIndex], SNAP_STAGES[stageIndex]) + r'''}};
-      '''
-      text += r'''\node (stage) at (0, 3.4) {Stage ''' + "%d" % SNAP_STAGES[stageIndex] + r'''};
-      '''
-
-      for ballIndex in range(NR_BALLS):
-        text += '''\draw[fill=''' + "col%d%d%d" % (
-        matrixIndex, stageIndex, ballIndex) + "] (%1.1f,%1.1f)" % (BALL_COORDS[ballIndex][0], BALL_COORDS[ballIndex][1]) + \
-        ''' circle [radius=0.33cm] node {\scriptsize ''' + "%s" % blobsLabels[ballIndex] + '''};
-          '''
-
-      text += r'''\end{tikzpicture}
-    %\end{subfigure}
-    % next subfigure
-    \hspace{-1.5em}
-    ~'''
-
-    upperLimitGradient = 6
-    lowerLimitGradient = 0
-    chunkLen = ((upperLimitGradient - lowerLimitGradient)/NR_SIGN_LEVELS)
-    text += r'''
-  \hspace{1em}
-  % the red-to-yellow gradient on the right
-  \begin{tikzpicture}[scale=1.1,auto,swap]
+    tex+= r'''
+    \node[block,above=of 0] {'''+ imageNames[img_path].replace('_', ' ') + r'''};
+    \end{tikzpicture}'''
+  # add colorbar
+  tex+= r'''\begin{tikzpicture}[scale=0.9,auto,swap]
     \colorlet{redhsb}[hsb]{red}%
     \colorlet{bluehsb}[hsb]{blue}%
     \colorlet{yellowhsb}[hsb]{yellow}%
     \colorlet{orangehsb}[hsb]{orange}%
-    \colorlet{magentahsb}[hsb]{magenta}%
-    \shade[bottom color=white,top color=red] (0,0) rectangle (0.5,2.01); % bottom rectangle
-    \shade[bottom color=red,top color=magenta] (0,2) rectangle (0.5,4.01);
-    \shade[bottom color=magenta,top color=blue] (0,4) rectangle (0.5,6); % top rectangle
-'''
-    sigmaLabels = ['normal', '2-sigma', '3-sigma', '5-sigma']
-    for s in range(NR_SIGN_LEVELS+1):
-      text += "\n    \draw (0,%d) -- (0.5,%d);" % (s*chunkLen, s*chunkLen)
-      text += r'''\node[inner sep=0] (corr_text) at (1.7,''' + str(s*chunkLen) + r''') {''' + sigmaLabels[s] + r'''};
-'''
-    text += r'''
+    \shade[bottom color=white,top color=yellow] (0,0) rectangle (0.5,2.01); % bottom rectangle
+    \shade[bottom color=yellow,top color=orange] (0,2) rectangle (0.5,4.01); 
+    \shade[bottom color=orange,top color=red] (0,4) rectangle (0.5,6); % top rectangle
+
+    \draw (0,0) -- (0.5,0);\node[inner sep=0] (corr_text) at (1.6,0.0) {normal};
+
+    \draw (0,2) -- (0.5,2);\node[inner sep=0] (corr_text) at (1.6,2.0) {1-sigma};
+
+    \draw (0,4) -- (0.5,4);\node[inner sep=0] (corr_text) at (1.6,4.0) {2-sigma};
+
+    \draw (0,6) -- (0.5,6);\node[inner sep=0] (corr_text) at (1.6,6.0) {3-sigma};
+
   \end{tikzpicture}
-  \caption{''' + " ".join(MAT_NAMES[matrixIndex].split("_")) +'''}
-\end{figure}
-'''
-
-  text += r'''
-\end{document}
-
-'''
-
-  return text
+  \end{document}'''
+  
+  return tex 
