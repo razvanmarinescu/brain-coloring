@@ -113,12 +113,13 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
     ``` make ```
     
 If successful, you should see the images in folder output/DK_output/ being updated. For configuring a new experiment, see section "Running the Software" below. 
+A LaTeX file will also be generated in the same folder and will load the images, names and a colorbar. 
 
 # Installation without Docker (only for advanced users)
 
 Note that this is harder due to the need of installing packages in the python version bundled with blender. 
 
-1. Install blender 2.8 from https://www.blender.org
+1. Install blender 2.79 from https://www.blender.org/download/releases/2-79/
 
 2. Pull the git repository: 
 
@@ -134,20 +135,18 @@ Note that this is harder due to the need of installing packages in the python ve
 
 4. If running on MacOS, blender might not be added to your path. In this case, run (change the path/to/blender to your installation location):
 
-    ``` /Applications/Blender/blender.app/Contents/MacOS/blender --background --python blendCreateSnapshot.py ```
+    ``` sudo /Applications/Blender/blender.app/Contents/MacOS/blender --background --python blendCreateSnapshot.py ```
 
-5. Install packages in the *python environment bundled with blender*. Luckily, from blender 2.8 pip is already included in blender's python. We then just do:  
+5. If python libraries are missing, install them using: 
 
-    ``` /Applications/Blender.app/Contents/Resources/2.83/python/bin/python3.7m -m pip install -U pandas numpy scipy```
+    ``` pip3 install scipy ```
+    ``` pip3 install numpy ```
 
-
-    Also see this answer for more information:
+    If the same error is obtained even after installing, it's probably because the packages are installed in the default system-wide python instead of the local python. See this answer for how to fix this:
     
     https://blender.stackexchange.com/questions/5287/using-3rd-party-python-modules
     
     Note: do not install the bpy package, as it comes automatically with the blender-bundled python
-
-6. Note that BrainPainter was developed using blender 2.79. Blender 2.8 has created some braking changes, which you can easily fix: e.g. change object.select = True to object.select_set(state=True)
 
 # Running the software
 
@@ -181,4 +180,3 @@ Note that this is harder due to the need of installing packages in the python ve
 5. If using docker, copy the image out of the docker container to the home directory ~/ :
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/DK_output/Image_1_cortical-outer.png ~/ ```
-
