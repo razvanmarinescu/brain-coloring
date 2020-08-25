@@ -1,6 +1,7 @@
 import scipy.io
 import bpy
 import numpy as np
+import pandas as pd
 import colorsys
 from abc import ABC, abstractmethod
 import os
@@ -405,3 +406,81 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
     bpy.ops.render.render(write_still=True)
     sys.stdout.flush()
 
+
+def genLaTex(inputFile, outputFolder): # PARAMS: input folder, output folder, ?=scale
+  tex = r'''
+\documentclass[11pt,a4paper]{report}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{plotmarks}
+\usepackage{amsmath,graphicx}
+\usepackage{epstopdf}
+\usepackage[font=normal,labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{scalefnt}
+
+% margin size
+\usepackage[margin=1in]{geometry}
+%\documentclass[border=2pt,tikz]{standalone}
+\usetikzlibrary{positioning}
+
+\begin{document}'''
+  INPUT_FILE = inputFile
+  matDf = pd.read_csv(INPUT_FILE) # reading in image names from input
+  directory = "."
+  extension = ".png"
+  output_folder = os.listdir(outputFolder) 
+  # filtering output folder for png's
+  img_files = [file for file in output_folder if file.lower().endswith(extension)] 
+  img_path_groups = [] # grouping images together
+  imageNames = matDf.loc[:,'Image-name-unique'].values # getting image name values
+  imageNames = [''.join(n.split(' ')) for n in imageNames] # remove spaces in names
+
+  for i in imageNames:
+    # grouping the images by csv name
+    latex_group = [file for file in output_folder if file.endswith(i + extension)] 
+    img_path_groups.append(latex_group)
+
+  for img_path in range(len(img_path_groups)):
+    # adding parent tikzpictures
+    tex+= r'''\tikzset{block/.style={node distance=-1pt, line width=1pt}}
+\begin{tikzpicture}
+\centering
+'''
+    for img in range(len(img_path_groups[img_path])): 
+      # adding image nodes
+      if(img==0): # positioning for first image
+        position = r''' \node[block] (0) {\includegraphics[scale=0.03]{./''' 
+      else: 
+        position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=0.03]{./'''
+      tex+= position + img_path_groups[img_path][img] + r'''}};
+      ''' 
+
+    tex+= r'''
+    \node[block,above=of 0] {'''+ imageNames[img_path].replace('_', ' ') + r'''};
+    \end{tikzpicture}'''
+  # add colorbar
+  tex+= r'''\begin{tikzpicture}[scale=0.9,auto,swap]
+    \colorlet{redhsb}[hsb]{red}%
+    \colorlet{bluehsb}[hsb]{blue}%
+    \colorlet{yellowhsb}[hsb]{yellow}%
+    \colorlet{orangehsb}[hsb]{orange}%
+    \shade[bottom color=white,top color=yellow] (0,0) rectangle (0.5,2.01); % bottom rectangle
+    \shade[bottom color=yellow,top color=orange] (0,2) rectangle (0.5,4.01); 
+    \shade[bottom color=orange,top color=red] (0,4) rectangle (0.5,6); % top rectangle
+
+    \draw (0,0) -- (0.5,0);\node[inner sep=0] (corr_text) at (1.6,0.0) {normal};
+
+    \draw (0,2) -- (0.5,2);\node[inner sep=0] (corr_text) at (1.6,2.0) {1-sigma};
+
+    \draw (0,4) -- (0.5,4);\node[inner sep=0] (corr_text) at (1.6,4.0) {2-sigma};
+
+    \draw (0,6) -- (0.5,6);\node[inner sep=0] (corr_text) at (1.6,6.0) {3-sigma};
+
+  \end{tikzpicture}
+  \end{document}'''
+  
+  return tex 

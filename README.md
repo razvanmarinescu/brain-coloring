@@ -113,6 +113,7 @@ https://docs.docker.com/v17.12/docker-for-mac/install/#download-docker-for-mac
     ``` make ```
     
 If successful, you should see the images in folder output/DK_output/ being updated. For configuring a new experiment, see section "Running the Software" below. 
+A LaTeX file will also be generated in the same folder and will load the images, names and a colorbar. 
 
 # Installation without Docker (only for advanced users)
 
@@ -179,4 +180,3 @@ Note that this is harder due to the need of installing packages in the python ve
 5. If using docker, copy the image out of the docker container to the home directory ~/ :
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/DK_output/Image_1_cortical-outer.png ~/ ```
-
