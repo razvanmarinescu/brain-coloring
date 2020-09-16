@@ -92,14 +92,38 @@ if IMG_TYPE == 'subcortical':
   indexMap = subcortAreasIndexMap
   areasShort = subcortAreasShort
   regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
-elif IMG_TYPE == 'cortical-outer':
-  #loadCortical(cortFilesAll)
+
+# right side painter
+elif IMG_TYPE == 'cortical-outer-right':
+  # loadCortical(cortFilesAll)
   painter = CorticalPainter(cortFilesRight)
   indexMap = cortAreasIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
-elif IMG_TYPE == 'cortical-inner':
-  painter = CorticalPainterInner(cortFilesRight)
+elif IMG_TYPE == 'cortical-inner-right':
+  painter = CorticalPainterInnerRight(cortFilesRight)
+  indexMap = cortAreasIndexMap
+  areasShort = cortAreas
+  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
+  
+# left side painter
+elif IMG_TYPE == 'cortical-outer-left':
+  painter = CorticalPainterLeft(cortFilesAll)
+  indexMap = cortAreasIndexMap
+  areasShort = cortAreas
+  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
+elif IMG_TYPE == 'cortical-inner-left':
+  painter = CorticalPainterInnerLeft(cortFilesLeft)
+  indexMap = cortAreasIndexMap
+  areasShort = cortAreas
+  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
+elif IMG_TYPE == 'top': 
+  painter = CorticalPainterTop(cortFilesAll)
+  indexMap = cortAreasIndexMap
+  areasShort = cortAreas
+  regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
+elif IMG_TYPE == 'bottom': 
+  painter = CorticalPainterBottom(cortFilesAll)
   indexMap = cortAreasIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate

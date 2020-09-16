@@ -155,10 +155,79 @@ class CorticalPainter(BrainPainter):
       lamp_data.distance = distanceAll
 
 
-      # print(lampaaa)
+class CorticalPainterLeft(BrainPainter):
+  
+  def __init__(self, cortFiles):
+    self.cortFiles = cortFiles
+    
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          obj.data.materials.append(material)
+        else:
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+
+    self.prepareCamera(resolution, fov)
+
+    pi = 3.14159265
+    scene.camera.rotation_euler = (pi / 2, 0, -1 * pi / 2)
+    # Set camera location
+    
+    scene.camera.location = (-167.00, -15.1, 3.824)
+    if BRAIN_TYPE == 'inflated':
+      scene.camera.location = (-167.00, -0.3, 3.824)
+          
+    bpy.data.cameras['Camera'].type = 'ORTHO'
+    bpy.data.cameras['Camera'].ortho_scale = ortho_scale
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+    
+    energyAll = 5
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    lampLocs = [(-136, 45, 72), (-136, -105, -64), (-136, -105, 72), (-136, 45, -64)]
+
+    if BRAIN_TYPE == 'inflated':
+      lampIndices = [1, 2, 3, 4, 5]
+      lampLocs = [(-136, 160, 130), (-136, -140, -64), (-136, -140, 130), (-136, 160, -64), (-136, 0, 130)]
+      
+      energyAll = 13
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
 
 
-class CorticalPainterInner(CorticalPainter):
+class CorticalPainterInnerRight(CorticalPainter):
   def __init__(self, cortFiles):
     self.cortFiles = cortFiles
 
@@ -227,7 +296,73 @@ class CorticalPainterInner(CorticalPainter):
       lamp_data.distance = distanceAll
 
 
-      # print(lampaaa)
+class CorticalPainterInnerLeft(CorticalPainter):
+  def __init__(self, cortFiles):
+    self.cortFiles = cortFiles
+
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          obj.data.materials.append(material)
+        else:
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+    
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+
+    self.prepareCamera(resolution, fov)
+
+    pi = 3.14159265
+    scene.camera.rotation_euler = (pi / 2, 0, -3 * pi / 2)
+    # Set camera location
+    scene.camera.location = (71, -15.1, 3.824)
+    if BRAIN_TYPE == 'inflated':
+      scene.camera.location = (71, -1.3, 3.824)
+
+    bpy.data.cameras['Camera'].type = 'ORTHO'
+    bpy.data.cameras['Camera'].ortho_scale = ortho_scale
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+
+    energyAll = 5
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    # y + 20
+    lampLocs = [(80, 70, 72), (80, -80, -64), (80, -80, 72), (80, 70, -64)]
+    if BRAIN_TYPE == 'inflated':
+      lampIndices = [1, 2, 3, 4, 5]
+      lampLocs = [(130, 150, 70), (130, -150, -120), (130, -150, 70), (130, 150, -130), (130, 0, 170), (90, 0, -90)]
+      energyAll = 11
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
 
 
 class SubcorticalPainter(BrainPainter):
@@ -399,12 +534,151 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
         else:
           print('object not found: %s' % obj.name)
 
-    # print(adsas)
     outputFile = '%s/%s_%s.png' % (OUT_FOLDER, IMG_TYPE, imageNames[imgIndex])
     print('rendering file %s' % outputFile)
     bpy.data.scenes['Scene'].render.filepath = outputFile
     bpy.ops.render.render(write_still=True)
     sys.stdout.flush()
+
+class CorticalPainterTop(BrainPainter):
+  
+  def __init__(self, cortFiles):
+    self.cortFiles = cortFiles
+    
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          obj.data.materials.append(material)
+        else:
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+
+    self.prepareCamera(resolution, fov)
+
+    pi = 3.14159265
+    scene.camera.rotation_axis_angle = (pi/2, 0, 0, 0)
+    scene.camera.rotation_euler = (0, 0, pi/2)
+    # scene.camera.Quaternion = (0, pi / 2, 0, -1 * pi / 2)
+    # Set camera location
+    scene.camera.location = (0, -10, 250)
+
+    bpy.data.cameras['Camera'].type = 'ORTHO'
+    bpy.data.cameras['Camera'].ortho_scale = ortho_scale
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+    
+    energyAll = 5
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    lampLocs = [(-45, 45, 150), (45, 45, 150), (45, -100, 150), (-45, -100, 150)]
+
+    if BRAIN_TYPE == 'inflated':
+      #! note: top does not work well for inflated type data
+      lampIndices = [1, 2, 3, 4, 5]
+      lampLocs = [(-45, 45, 150), (45, 45, 150), (45, -100, 150), (-45, -100, 150), (-45, -100, 200)]
+      energyAll = 13
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
+      
+class CorticalPainterBottom(BrainPainter):
+  
+  def __init__(self, cortFiles):
+    self.cortFiles = cortFiles
+    
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1.0)
+          obj.data.materials.append(material)
+        else:
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+
+    self.prepareCamera(resolution, fov)
+
+    pi = 3.14159265
+    scene.camera.rotation_axis_angle = (pi/2, 0, 0, 0)
+    scene.camera.rotation_euler = (pi, 0, pi/2)
+    # scene.camera.Quaternion = (0, pi / 2, 0, -1 * pi / 2)
+    # Set camera location
+    scene.camera.location = (0, -10, -250)
+
+    bpy.data.cameras['Camera'].type = 'ORTHO'
+    bpy.data.cameras['Camera'].ortho_scale = ortho_scale
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+    
+    energyAll = 5
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    lampLocs = [(-45, 45, -150), (45, 45, -150), (45, -100, -150), (-45, -100, -150)]
+
+    if BRAIN_TYPE == 'inflated':
+      #! note: top does not work well for inflated type data
+      lampIndices = [1, 2, 3, 4, 5]
+      lampLocs = [(-45, 45, -150), (45, 45, -150), (45, -100, -150), (-45, -100, -150), (-45, -100, -200)]
+      energyAll = 13
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
 
 
 def genLaTex(inputFile, outputFolder): # PARAMS: input folder, output folder, ?=scale
