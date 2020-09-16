@@ -94,25 +94,25 @@ if IMG_TYPE == 'subcortical':
   regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
 
 # right side painter
-elif IMG_TYPE == 'cortical-outer-right':
+elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
   painter = CorticalPainter(cortFilesRight)
   indexMap = cortAreasIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
-elif IMG_TYPE == 'cortical-inner-right':
+elif IMG_TYPE == 'cortical-inner-right-hemisphere':
   painter = CorticalPainterInnerRight(cortFilesRight)
   indexMap = cortAreasIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
   
 # left side painter
-elif IMG_TYPE == 'cortical-outer-left':
+elif IMG_TYPE == 'cortical-outer-left-hemisphere':
   painter = CorticalPainterLeft(cortFilesAll)
   indexMap = cortAreasIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
-elif IMG_TYPE == 'cortical-inner-left':
+elif IMG_TYPE == 'cortical-inner-left-hemisphere':
   painter = CorticalPainterInnerLeft(cortFilesLeft)
   indexMap = cortAreasIndexMap
   areasShort = cortAreas

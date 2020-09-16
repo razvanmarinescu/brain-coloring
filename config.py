@@ -10,9 +10,9 @@ ATLAS = 'DK'
 BRAIN_TYPE = 'pial'
 
 # either cortical-outer, cortical-inner, subcortical 
-# add -right or -left to end of image type to specify view
+# add -right-hemisphere or -left-hemisphere to end of image type to specify view
 # image types "top" and "bottom" are available to show asymmetry
-IMG_TYPE = 'cortical-outer-right'
+IMG_TYPE = 'cortical-outer-right-hemisphere'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
