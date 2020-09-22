@@ -704,6 +704,8 @@ def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, out
 %\documentclass[border=2pt,tikz]{standalone}
 \usetikzlibrary{positioning}
 
+\newcommand{\sc}{0.6}
+
 \begin{document}'''
   INPUT_FILE = inputFile
   matDf = pd.read_csv(INPUT_FILE) # reading in image names from input
@@ -730,9 +732,9 @@ def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, out
     for img in range(len(img_path_groups[img_path])): 
       # adding image nodes
       if(img==0): # positioning for first image
-        position = r''' \node[block] (0) {\includegraphics[scale=0.06]{./''' 
+        position = r''' \node[block] (0) {\includegraphics[scale=\sc]{./''' 
       else: 
-        position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=0.03]{./'''
+        position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=\sc]{./'''
       tex+= position + img_path_groups[img_path][img] + r'''}};
       ''' 
 
