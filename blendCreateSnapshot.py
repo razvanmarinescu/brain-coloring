@@ -133,6 +133,8 @@ else:
 fov = 50.0
 if BRAIN_TYPE == 'inflated':
   ortho_scale = 280
+elif IMG_TYPE in ['top', 'bottom']:
+  ortho_scale = 190
 else:
   ortho_scale = 180
 
