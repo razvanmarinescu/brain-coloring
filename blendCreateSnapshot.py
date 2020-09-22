@@ -156,7 +156,7 @@ colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE)
 
 # outFolderCurrMat = '%s' % (OUT_FOLDER.rsplit('/', 1)[0])
 outFolderCurrMat = '%s' % OUT_FOLDER
-text = genLaTex(INPUT_FILE, OUT_FOLDER)
+text = genLaTex(INPUT_FILE, OUT_FOLDER, COLOR_POINTS)
 os.system('mkdir -p %s' % outFolderCurrMat)
 out = open('%s/report.tex' % outFolderCurrMat, 'w')
 out.write(text)

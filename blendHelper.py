@@ -681,7 +681,10 @@ class CorticalPainterBottom(BrainPainter):
       lamp_data.distance = distanceAll
 
 
-def genLaTex(inputFile, outputFolder): # PARAMS: input folder, output folder, ?=scale
+def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, output folder, ?=scale
+  COLORS_HSV = [colorsys.rgb_to_hsv(*c)  for c in COLOR_POINTS]
+  print(COLORS_HSV)
+  
   tex = r'''
 \documentclass[11pt,a4paper]{report}
 \usepackage{float}
