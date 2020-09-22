@@ -704,7 +704,7 @@ def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, out
 %\documentclass[border=2pt,tikz]{standalone}
 \usetikzlibrary{positioning}
 
-\newcommand{\sc}{0.6}
+\newcommand{\scl}{0.06}
 
 \begin{document}'''
   INPUT_FILE = inputFile
@@ -732,9 +732,9 @@ def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, out
     for img in range(len(img_path_groups[img_path])): 
       # adding image nodes
       if(img==0): # positioning for first image
-        position = r''' \node[block] (0) {\includegraphics[scale=\sc]{./''' 
+        position = r''' \node[block] (0) {\includegraphics[scale=\scl]{./''' 
       else: 
-        position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=\sc]{./'''
+        position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=\scl]{./'''
       tex+= position + img_path_groups[img_path][img] + r'''}};
       ''' 
 
