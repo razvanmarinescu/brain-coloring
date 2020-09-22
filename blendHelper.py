@@ -403,5 +403,8 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
     print('rendering file %s' % outputFile)
     bpy.data.scenes['Scene'].render.filepath = outputFile
     bpy.ops.render.render(write_still=True)
+    if IMG_TYPE == 'cortical-inner' and 'Image-text' in matDf.columns.to_list():
+      currText = matDf.loc[imgIndex, 'Image-text']
+      os.system('convert -font helvetica -fill black -pointsize 80 -gravity center -extent 1200x1200 -draw "text 0,-450 \'%s\'" %s %s' % (currText, outputFile, outputFile))
     sys.stdout.flush()
 

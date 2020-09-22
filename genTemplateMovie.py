@@ -80,7 +80,7 @@ centersReg = {
 nrBiomk = len(files)
 nrImages = 600
 maxBiomkValue = 3
-desikanKillianyDf = pd.DataFrame(index=range(0), columns=['Image-name-unique'] + files)
+desikanKillianyDf = pd.DataFrame(index=range(0), columns=['Image-name-unique'] + files + ['Image-text'])
 
 
 roiNames = list(centersReg.keys())
@@ -93,8 +93,13 @@ for i in range(nrImages):
     timeIndex = (float(i) - 0.5*nrImages)/nrImages
     desikanKillianyDf.loc[counter,files[r]] = sig(timeIndex,a=maxBiomkValue,b=4,c=centersReg[files[r]])
 
+  desikanKillianyDf.loc[counter, 'Image-text'] = 'Years since onset: %.1f ' % (float(20*i)/nrImages)
+
   counter += 1
 
-desikanKillianyDf.to_csv('../generated/DK_movie/DK_template_movie.csv', index=False)
+
+
+#desikanKillianyDf.to_csv('../generated/DK_movie/DK_template_movie.csv', index=False)
+desikanKillianyDf.to_csv('DK_template_movie.csv', index=False)
 print(desikanKillianyDf)
 

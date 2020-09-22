@@ -1,5 +1,5 @@
 
-INPUT_FILE = 'input/DK_template_movie.csv' # input template should match ATLAS below
+INPUT_FILE = 'generated/DK_movie/DK_template_movie.csv' # input template should match ATLAS below
 
 OUTPUT_FOLDER = 'output/DK_movie'
 
@@ -10,7 +10,7 @@ ATLAS = 'DK'
 BRAIN_TYPE = 'pial'
 
 # either cortical-outer, cortical-inner or subcortical
-IMG_TYPE = 'cortical-outer'
+IMG_TYPE = 'subcortical'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
@@ -18,11 +18,11 @@ IMG_TYPE = 'cortical-outer'
 # a pathology at 1.3 will interpolate between the second and third color
 
 # NOTE: you can add more than 4 colours (as many as you want), in which case you should increase the range of the input biomarkers.
-COLORS_RGB = [(1,1,1), (1,1,0), (1,0.4,0), (1,0,0)] # white -> yellow -> orange -> red
+COLORS_RGB = [(1,1,1), (1,0,0), (1,0,1), (0,0,1)] # white -> yellow -> orange -> red
 # COLORS_RGB = [(1,1,1), (1,0,0), (1,0,0), (1,0,0)] # white -> red -> red -> red
 
 # output image resolution for X,Y in pixels
-RESOLUTION = (1200, 900)
+RESOLUTION = (1200, 1200)
 
 # default is white
 BACKGROUND_COLOR = (1,1,1)
