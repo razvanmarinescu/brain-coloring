@@ -730,7 +730,7 @@ def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, out
     for img in range(len(img_path_groups[img_path])): 
       # adding image nodes
       if(img==0): # positioning for first image
-        position = r''' \node[block] (0) {\includegraphics[scale=0.03]{./''' 
+        position = r''' \node[block] (0) {\includegraphics[scale=0.06]{./''' 
       else: 
         position = r''' \node[block, below=of ''' + str(img-1) + r'''] (''' + str(img) + r''') {\includegraphics[scale=0.03]{./'''
       tex+= position + img_path_groups[img_path][img] + r'''}};
