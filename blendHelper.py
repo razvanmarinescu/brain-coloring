@@ -681,9 +681,7 @@ class CorticalPainterBottom(BrainPainter):
       lamp_data.distance = distanceAll
 
 
-def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, output folder, ?=scale
-  COLORS_HSV = [colorsys.rgb_to_hsv(*c)  for c in COLOR_POINTS]
-  print(COLORS_HSV)
+def genLaTex(inputFile, outputFolder, COLORS_RGB): # PARAMS: input folder, output folder, user color input
   
   tex = r'''
 \documentclass[11pt,a4paper]{report}
@@ -742,22 +740,28 @@ def genLaTex(inputFile, outputFolder, COLOR_POINTS): # PARAMS: input folder, out
     \node[block,above=of 0] {'''+ imageNames[img_path].replace('_', ' ') + r'''};
     \end{tikzpicture}'''
   # add colorbar
-  tex+= r'''\begin{tikzpicture}[scale=0.9,auto,swap]
-    \colorlet{redhsb}[hsb]{red}%
-    \colorlet{bluehsb}[hsb]{blue}%
-    \colorlet{yellowhsb}[hsb]{yellow}%
-    \colorlet{orangehsb}[hsb]{orange}%
-    \shade[bottom color=white,top color=yellow] (0,0) rectangle (0.5,2.01); % bottom rectangle
-    \shade[bottom color=yellow,top color=orange] (0,2) rectangle (0.5,4.01); 
-    \shade[bottom color=orange,top color=red] (0,4) rectangle (0.5,6); % top rectangle
-
-    \draw (0,0) -- (0.5,0);\node[inner sep=0] (corr_text) at (1.6,0.0) {normal};
-
-    \draw (0,2) -- (0.5,2);\node[inner sep=0] (corr_text) at (1.6,2.0) {1-sigma};
-
-    \draw (0,4) -- (0.5,4);\node[inner sep=0] (corr_text) at (1.6,4.0) {2-sigma};
-
-    \draw (0,6) -- (0.5,6);\node[inner sep=0] (corr_text) at (1.6,6.0) {3-sigma};
+  tex+= r'''\begin{tikzpicture}[scale=0.9,auto,swap]'''
+  
+  for c in range(len(COLORS_RGB)): # defining colors based on user input in config
+    tex+= r'''
+    \definecolor{color_''' + str(c) + r'''}{rgb}{''' + str(COLORS_RGB[c]).replace('(', '').replace(')', '') + r'''}'''
+  
+  for c in range(len(COLORS_RGB)-1): # adding the color bar shading
+    tex+= r'''
+    \shade[bottom color=color_''' + str(c) + r''',top color=color_''' + str(c+1) + r'''] (0,''' + str(c*2) + r''') rectangle (0.5,''' + str((c * 2) + 2.01) + r''');
+    '''
+    
+  for c in range(len(COLORS_RGB)): # drawing and labeling the lines on colorbar
+    if(c==0): # name 0-sigma normal
+      tex+= r''' 
+    \draw (0,0) -- (0.5,0);\node[inner sep=0] (corr_text) at (1.6,0.0) {normal}
+      '''
+    else: # for 1-n sigmas
+      tex+= r''' 
+    \draw (0,''' + str(c*2) + r''') -- (0.5,''' + str(c*2) + r''');\node[inner sep=0] (corr_text) at (1.6,''' + str(c*2.0) + r''') {''' + str(c) + r'''-sigma};
+      '''
+  
+  tex+= r'''
 
   \end{tikzpicture}
   \end{document}'''

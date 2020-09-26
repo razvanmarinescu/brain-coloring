@@ -34,7 +34,8 @@ print(INPUT_FILE)
 
 OUT_FOLDER = config.OUTPUT_FOLDER
 
-COLOR_POINTS = [np.array(x) for x in config.COLORS_RGB]
+COLORS_RGB = config.COLORS_RGB
+COLOR_POINTS = [np.array(x) for x in COLORS_RGB]
 NR_SIGN_LEVELS = len(COLOR_POINTS)-1
 
 IMG_TYPE = config.IMG_TYPE
@@ -156,7 +157,7 @@ colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE)
 
 # outFolderCurrMat = '%s' % (OUT_FOLDER.rsplit('/', 1)[0])
 outFolderCurrMat = '%s' % OUT_FOLDER
-text = genLaTex(INPUT_FILE, OUT_FOLDER, COLOR_POINTS)
+text = genLaTex(INPUT_FILE, OUT_FOLDER, COLORS_RGB)
 os.system('mkdir -p %s' % outFolderCurrMat)
 out = open('%s/report.tex' % outFolderCurrMat, 'w')
 out.write(text)
