@@ -754,7 +754,7 @@ def genLaTex(inputFile, outputFolder, COLORS_RGB): # PARAMS: input folder, outpu
   for c in range(len(COLORS_RGB)): # drawing and labeling the lines on colorbar
     if(c==0): # name 0-sigma normal
       tex+= r''' 
-    \draw (0,0) -- (0.5,0);\node[inner sep=0] (corr_text) at (1.6,0.0) {normal}
+    \draw (0,0) -- (0.5,0);\node[inner sep=0] (corr_text) at (1.6,0.0) {normal};
       '''
     else: # for 1-n sigmas
       tex+= r''' 
