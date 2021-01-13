@@ -1,10 +1,10 @@
 
-INPUT_FILE = 'input/DK_template.csv' # input template should match ATLAS below
+INPUT_FILE = 'input/mouse_template.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/DK_Output'
+OUTPUT_FOLDER = 'output/m1_test'
 
-# either 'DK', 'Destrieux', 'Tourville' or 'Custom'
-ATLAS = 'DK'
+# either 'DK', 'Destrieux', 'Tourville', 'Mice' or 'Custom'
+ATLAS = 'Mice'
 
 # either 'pial' (with gyri/sulci), 'inflated' (smooth) or 'white' (white-matter surface)
 BRAIN_TYPE = 'pial'
@@ -12,7 +12,7 @@ BRAIN_TYPE = 'pial'
 # either cortical-outer, cortical-inner, subcortical 
 # add -right-hemisphere or -left-hemisphere to end of image type to specify view
 # image types "top" and "bottom" are available to show asymmetry
-IMG_TYPE = 'cortical-outer-right-hemisphere'
+IMG_TYPE = 'bottom'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
@@ -168,6 +168,43 @@ cortAreasIndexMapDestrieux = {'G_Ins_lg_and_S_cent_ins': 'G_Ins_lg_and_S_cent_in
   'S_temporal_sup': 'S_temporal_sup',
   'S_temporal_transverse': 'S_temporal_transverse',
   'Unknown':-1 # this is actually the middle region inside the cortical surface. color it as gray
+}
+
+### Mouse brain atlas ###
+
+# Left-Hand-Side = Blender Regions   Right-Hand-Side = Regions in custom input atlas (.csv INPUT_FILE)
+cortAreasIndexMapMice = {
+  'Anterior-cingulate': 'Anterior-cingulate',
+  'Auditory': 'Auditory',
+  'Cortical-subplate': 'Cortical-subplate',
+  'FRP': 'FRP', # Acronym for Frontal pole, cerebral cortex
+  'Gustatory': 'Gustatory',
+  'Hippocampus': 'Hippocampus',
+  'Infralimbic': 'Infralimbic',
+  'Medulla': 'Medulla',
+  'Olfactory': 'Olfactory',
+  'Pons': 'Pons',
+  'Prelimbic': 'Prelimbic',
+  'Retrosplenial': 'Retrosplenial',
+  'Somatomotor': 'Somatomotor',
+  'Somatosensory': 'Somatosensory',
+  'Striatum': 'Striatum',
+  'Visceral': 'Visceral',
+  'Visual': 'Visual', 
+  'Agranular-insular-area': 'Agranular-insular-area', 
+  'Posterior-parietal-association-areas': 'Posterior-parietal-association-areas', 
+  'Temporal-association-areas': 'Temporal-association-areas',
+  'Perirhinal': 'Perirhinal',
+  'Ectorhinal': 'Ectorhinal',
+}
+
+# subcortical areas for mouse atlas
+subcortMouseAreasIndexMap = {
+  'Cerebellum':'Cerebellum', # -1 means do not colour this region
+  'Hypothalamus':'Hypothalamus',
+  'Midbrain':'Midbrain',
+  'Pallidum': 'Pallidum',
+  'Thalamus':'Thalamus'
 }
 
 
