@@ -12,7 +12,7 @@ BRAIN_TYPE = 'pial'
 # either cortical-outer, cortical-inner, subcortical 
 # add -right-hemisphere or -left-hemisphere to end of image type to specify view
 # image types "top" and "bottom" are available to show asymmetry
-IMG_TYPE = 'bottom'
+IMG_TYPE = 'cortical-outer-left-hemisphere'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
@@ -32,7 +32,8 @@ BACKGROUND_COLOR = (1,1,1)
 # to change camera viewing angle and other advanced settings, look into blendHelper.py:setCamera()
 # for luminosity settings, look into blendHelper.py:setLamp()
 
-
+if ATLAS == 'Mice':
+      BRAIN_TYPE = 'pial'
 
 
 
@@ -177,9 +178,7 @@ cortAreasIndexMapMice = {
   'Anterior-cingulate': 'Anterior-cingulate',
   'Auditory': 'Auditory',
   'Cortical-subplate': 'Cortical-subplate',
-  'FRP': 'FRP', # Acronym for Frontal pole, cerebral cortex
   'Gustatory': 'Gustatory',
-  'Hippocampus': 'Hippocampus',
   'Infralimbic': 'Infralimbic',
   'Medulla': 'Medulla',
   'Olfactory': 'Olfactory',
@@ -202,6 +201,8 @@ cortAreasIndexMapMice = {
 subcortMouseAreasIndexMap = {
   'Cerebellum':'Cerebellum', # -1 means do not colour this region
   'Hypothalamus':'Hypothalamus',
+  'FRP': 'FRP', # Acronym for Frontal pole, cerebral cortex,
+  'Hippocampus': 'Hippocampus',
   'Midbrain':'Midbrain',
   'Pallidum': 'Pallidum',
   'Thalamus':'Thalamus'
