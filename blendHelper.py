@@ -86,15 +86,18 @@ class BrainPainter(ABC):
 
 
 class CorticalPainter(BrainPainter):
-  def __init__(self, cortFiles):
+  def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
-
-    # def loadCortical(cortFiles):
+    self.subcortFiles = subcortFiles
 
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    # import subcortical regions
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
 
     if bpy.context.selected_objects:
       for obj in bpy.context.selected_objects:
@@ -107,7 +110,7 @@ class CorticalPainter(BrainPainter):
           material.diffuse_color = (0.3, 0.3, 0.3)
           material.alpha = 1
           obj.data.materials.append(material)
-
+        
   def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
 
     scene = bpy.data.scenes["Scene"]
@@ -157,13 +160,17 @@ class CorticalPainter(BrainPainter):
 
 class CorticalPainterLeft(BrainPainter):
   
-  def __init__(self, cortFiles):
+  def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
+    self.subcortFiles = subcortFiles
     
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
 
     if bpy.context.selected_objects:
       for obj in bpy.context.selected_objects:
@@ -228,13 +235,17 @@ class CorticalPainterLeft(BrainPainter):
 
 
 class CorticalPainterInnerRight(CorticalPainter):
-  def __init__(self, cortFiles):
+  def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
+    self.subcortFiles = subcortFiles
 
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
 
     if bpy.context.selected_objects:
       for obj in bpy.context.selected_objects:
@@ -297,11 +308,15 @@ class CorticalPainterInnerRight(CorticalPainter):
 
 
 class CorticalPainterInnerLeft(CorticalPainter):
-  def __init__(self, cortFiles):
+  def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
+    self.subcortFiles = subcortFiles
 
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
 
@@ -415,7 +430,7 @@ class SubcorticalPainter(BrainPainter):
 
     # Set camera translation
     # scene.camera.location = (-107.3, 66.8, 43.1) # subcort only
-    scene.camera.location = (-168.3, 66.8, 83.1)  # half cort half subcort
+    scene.camera.location = (-177.16, 69.74, 83.1)  # half cort half subcort
 
     bpy.data.cameras['Camera'].clip_end = 1000
 
@@ -542,13 +557,17 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
 
 class CorticalPainterTop(BrainPainter):
   
-  def __init__(self, cortFiles):
+  def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
+    self.subcortFiles = subcortFiles
     
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
 
     if bpy.context.selected_objects:
       for obj in bpy.context.selected_objects:
@@ -612,13 +631,17 @@ class CorticalPainterTop(BrainPainter):
       
 class CorticalPainterBottom(BrainPainter):
   
-  def __init__(self, cortFiles):
+  def __init__(self, cortFiles, subcortFiles):
     self.cortFiles = cortFiles
+    self.subcortFiles = subcortFiles
     
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
 
     if bpy.context.selected_objects:
       for obj in bpy.context.selected_objects:

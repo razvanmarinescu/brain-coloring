@@ -94,6 +94,11 @@ else:
 nrSubcortRegions = len(subcortAreas)
 nrCortRegions = len(cortFilesAll)
 
+# merge cort and subcort index maps
+cortIndexMap = cortAreasIndexMap.copy()
+cortIndexMap.update(subcortAreasIndexMap) 
+fullIndexMap = cortIndexMap # for mouse brain and cross section view
+
 if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
   painter = SubcorticalPainter(cortFilesRight,subcortFiles)
@@ -103,34 +108,34 @@ if IMG_TYPE == 'subcortical':
 # right side painter
 elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
-  painter = CorticalPainter(cortFilesRight)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainter(cortFilesRight, subcortFiles)
+  indexMap = fullIndexMap 
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'cortical-inner-right-hemisphere':
-  painter = CorticalPainterInnerRight(cortFilesRight)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterInnerRight(cortFilesRight, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 # left side painter
 elif IMG_TYPE == 'cortical-outer-left-hemisphere':
-  painter = CorticalPainterLeft(cortFilesAll)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterLeft(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'cortical-inner-left-hemisphere':
-  painter = CorticalPainterInnerLeft(cortFilesLeft)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterInnerLeft(cortFilesLeft, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'top': 
-  painter = CorticalPainterTop(cortFilesAll)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterTop(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'bottom': 
-  painter = CorticalPainterBottom(cortFilesAll)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterBottom(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 else:
