@@ -1,7 +1,7 @@
 
 INPUT_FILE = 'input/mouse_template.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/m1_test'
+OUTPUT_FOLDER = 'output/mtest'
 
 # either 'DK', 'Destrieux', 'Tourville', 'Mice' or 'Custom'
 ATLAS = 'Mice'
@@ -175,37 +175,66 @@ cortAreasIndexMapDestrieux = {'G_Ins_lg_and_S_cent_ins': 'G_Ins_lg_and_S_cent_in
 
 # Left-Hand-Side = Blender Regions   Right-Hand-Side = Regions in custom input atlas (.csv INPUT_FILE)
 cortAreasIndexMapMice = {
-  'Anterior-cingulate': 'Anterior-cingulate',
-  'Auditory': 'Auditory',
-  'Cortical-subplate': 'Cortical-subplate',
-  'Gustatory': 'Gustatory',
-  'Infralimbic': 'Infralimbic',
-  'Medulla': 'Medulla',
-  'Olfactory': 'Olfactory',
-  'Pons': 'Pons',
-  'Prelimbic': 'Prelimbic',
-  'Retrosplenial': 'Retrosplenial',
-  'Somatomotor': 'Somatomotor',
-  'Somatosensory': 'Somatosensory',
-  'Striatum': 'Striatum',
-  'Visceral': 'Visceral',
-  'Visual': 'Visual', 
-  'Agranular-insular-area': 'Agranular-insular-area', 
-  'Posterior-parietal-association-areas': 'Posterior-parietal-association-areas', 
-  'Temporal-association-areas': 'Temporal-association-areas',
-  'Perirhinal': 'Perirhinal',
-  'Ectorhinal': 'Ectorhinal',
+  'Left-Anterior-cingulate': 'Left-Anterior-cingulate',
+  'Left-Auditory': 'Left-Auditory',
+  'Left-Cortical-subplate': 'Left-Cortical-subplate',
+  'Left-Gustatory': 'Left-Gustatory',
+  'Left-Infralimbic': 'Left-Infralimbic',
+  'Left-Medulla': 'Left-Medulla',
+  'Left-Olfactory': 'Left-Olfactory',
+  'Left-Pons': 'Left-Pons',
+  'Left-Prelimbic': 'Left-Prelimbic',
+  'Left-Retrosplenial': 'Left-Retrosplenial',
+  'Left-Somatomotor': 'Left-Somatomotor',
+  'Left-Somatosensory': 'Left-Somatosensory',
+  'Left-Striatum': 'Left-Striatum',
+  'Left-Visceral': 'Left-Visceral',
+  'Left-Visual': 'Left-Visual', 
+  'Left-Agranular-insular-area': 'Left-Agranular-insular-area', 
+  'Left-Posterior-parietal-association-areas': 'Left-Posterior-parietal-association-areas', 
+  'Left-Temporal-association-areas': 'Left-Temporal-association-areas',
+  'Left-Perirhinal': 'Left-Perirhinal',
+  'Left-Ectorhinal': 'Left-Ectorhinal',
+
+  'Right-Anterior-cingulate': 'Right-Anterior-cingulate',
+  'Right-Auditory': 'Right-Auditory',
+  'Right-Cortical-subplate': 'Right-Cortical-subplate',
+  'Right-Gustatory': 'Right-Gustatory',
+  'Right-Infralimbic': 'Right-Infralimbic',
+  'Right-Medulla': 'Right-Medulla',
+  'Right-Olfactory': 'Right-Olfactory',
+  'Right-Pons': 'Right-Pons',
+  'Right-Prelimbic': 'Right-Prelimbic',
+  'Right-Retrosplenial': 'Right-Retrosplenial',
+  'Right-Somatomotor': 'Right-Somatomotor',
+  'Right-Somatosensory': 'Right-Somatosensory',
+  'Right-Striatum': 'Right-Striatum',
+  'Right-Visceral': 'Right-Visceral',
+  'Right-Visual': 'Right-Visual', 
+  'Right-Agranular-insular-area': 'Right-Agranular-insular-area', 
+  'Right-Posterior-parietal-association-areas': 'Right-Posterior-parietal-association-areas', 
+  'Right-Temporal-association-areas': 'Right-Temporal-association-areas',
+  'Right-Perirhinal': 'Right-Perirhinal',
+  'Right-Ectorhinal': 'Right-Ectorhinal',
 }
 
 # subcortical areas for mouse atlas
 subcortMouseAreasIndexMap = {
-  'Cerebellum':'Cerebellum', # -1 means do not colour this region
-  'Hypothalamus':'Hypothalamus',
-  'FRP': 'FRP', # Acronym for Frontal pole, cerebral cortex,
-  'Hippocampus': 'Hippocampus',
-  'Midbrain':'Midbrain',
-  'Pallidum': 'Pallidum',
-  'Thalamus':'Thalamus'
+  'Left-Cerebellum':'Left-Cerebellum', # -1 means do not colour this region
+  'Left-Hypothalamus':'Left-Hypothalamus',
+  'Left-Frontal-pole': 'Left-Frontal-pole', # Acronym for Frontal pole, cerebral cortex,
+  'Left-Hippocampus': 'Left-Hippocampus',
+  'Left-Midbrain':'Left-Midbrain',
+  'Left-Pallidum': 'Left-Pallidum',
+  'Left-Thalamus':'Left-Thalamus',
+
+  'Right-Cerebellum':'Right-Cerebellum', # -1 means do not colour this region
+  'Right-Hypothalamus':'Right-Hypothalamus',
+  'Right-Frontal-pole': 'Right-Frontal-pole', # Acronym for Frontal pole, cerebral cortex,
+  'Right-Hippocampus': 'Right-Hippocampus',
+  'Right-Midbrain':'Right-Midbrain',
+  'Right-Pallidum': 'Right-Pallidum',
+  'Right-Thalamus':'Right-Thalamus'
 }
 
 

@@ -71,7 +71,12 @@ subcortRegionsThatShouldBeInTemplate = subcortAreasIndexMap.values()
 
 cortFilesRight = ['models/%s_atlas_%s/rh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
 cortFilesLeft =  ['models/%s_atlas_%s/lh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
+
+cortFilesMouse = ['models/%s_atlas_%s/fh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
+
 cortFilesAll = cortFilesLeft + cortFilesRight
+
+if ATLAS == 'Mice': cortFilesAll = cortFilesMouse
 
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
 cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values())))
@@ -101,14 +106,14 @@ fullIndexMap = cortIndexMap # for mouse brain and cross section view
 
 if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
-  painter = SubcorticalPainter(cortFilesRight,subcortFiles)
+  painter = SubcorticalPainter(cortFilesAll,subcortFiles)
   indexMap = subcortAreasIndexMap
   areasShort = subcortAreasShort
   regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
 # right side painter
 elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
-  painter = CorticalPainter(cortFilesRight, subcortFiles)
+  painter = CorticalPainter(cortFilesAll, subcortFiles)
   indexMap = fullIndexMap 
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate

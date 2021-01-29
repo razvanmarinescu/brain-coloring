@@ -77,8 +77,10 @@ tourvilleDf.to_csv('input/Tourville_template.csv', index=False)
 print(tourvilleDf)
 
 # generate templates for Mouse Atlas
-files = glob.glob('models/Mice_atlas_pial/lh.*')
+files = glob.glob('models/Mice_atlas_pial/fh*')
 files = list(np.sort([f.split('.')[3] for f in files])) + subcortMouseFiles
+
+
 mouseDict = dict(zip(files, files))
 print(files)
 print('MouseTemplate',mouseDict)
