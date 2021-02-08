@@ -1,10 +1,10 @@
 
-INPUT_FILE = 'input/DK_template.csv' # input template should match ATLAS below
+INPUT_FILE = 'input/mouse_template.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/DK_Output'
+OUTPUT_FOLDER = 'output/mtest'
 
-# either 'DK', 'Destrieux', 'Tourville' or 'Custom'
-ATLAS = 'DK'
+# either 'DK', 'Destrieux', 'Tourville', 'Mice' or 'Custom'
+ATLAS = 'Mice'
 
 # either 'pial' (with gyri/sulci), 'inflated' (smooth) or 'white' (white-matter surface)
 BRAIN_TYPE = 'pial'
@@ -12,7 +12,7 @@ BRAIN_TYPE = 'pial'
 # either cortical-outer, cortical-inner, subcortical 
 # add -right-hemisphere or -left-hemisphere to end of image type to specify view
 # image types "top" and "bottom" are available to show asymmetry
-IMG_TYPE = 'cortical-outer-right-hemisphere'
+IMG_TYPE = 'subcortical'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],
@@ -32,7 +32,8 @@ BACKGROUND_COLOR = (1,1,1)
 # to change camera viewing angle and other advanced settings, look into blendHelper.py:setCamera()
 # for luminosity settings, look into blendHelper.py:setLamp()
 
-
+if ATLAS == 'Mice':
+      BRAIN_TYPE = 'pial'
 
 
 
@@ -168,6 +169,72 @@ cortAreasIndexMapDestrieux = {'G_Ins_lg_and_S_cent_ins': 'G_Ins_lg_and_S_cent_in
   'S_temporal_sup': 'S_temporal_sup',
   'S_temporal_transverse': 'S_temporal_transverse',
   'Unknown':-1 # this is actually the middle region inside the cortical surface. color it as gray
+}
+
+### Mouse brain atlas ###
+
+# Left-Hand-Side = Blender Regions   Right-Hand-Side = Regions in custom input atlas (.csv INPUT_FILE)
+cortAreasIndexMapMice = {
+  'Left-Anterior-cingulate': 'Left-Anterior-cingulate',
+  'Left-Auditory': 'Left-Auditory',
+  'Left-Cortical-subplate': 'Left-Cortical-subplate',
+  'Left-Gustatory': 'Left-Gustatory',
+  'Left-Infralimbic': 'Left-Infralimbic',
+  'Left-Medulla': 'Left-Medulla',
+  'Left-Olfactory': 'Left-Olfactory',
+  'Left-Pons': 'Left-Pons',
+  'Left-Prelimbic': 'Left-Prelimbic',
+  'Left-Retrosplenial': 'Left-Retrosplenial',
+  'Left-Somatomotor': 'Left-Somatomotor',
+  'Left-Somatosensory': 'Left-Somatosensory',
+  'Left-Striatum': 'Left-Striatum',
+  'Left-Visceral': 'Left-Visceral',
+  'Left-Visual': 'Left-Visual', 
+  'Left-Agranular-insular-area': 'Left-Agranular-insular-area', 
+  'Left-Posterior-parietal-association-areas': 'Left-Posterior-parietal-association-areas', 
+  'Left-Temporal-association-areas': 'Left-Temporal-association-areas',
+  'Left-Perirhinal': 'Left-Perirhinal',
+  'Left-Ectorhinal': 'Left-Ectorhinal',
+
+  'Right-Anterior-cingulate': 'Right-Anterior-cingulate',
+  'Right-Auditory': 'Right-Auditory',
+  'Right-Cortical-subplate': 'Right-Cortical-subplate',
+  'Right-Gustatory': 'Right-Gustatory',
+  'Right-Infralimbic': 'Right-Infralimbic',
+  'Right-Medulla': 'Right-Medulla',
+  'Right-Olfactory': 'Right-Olfactory',
+  'Right-Pons': 'Right-Pons',
+  'Right-Prelimbic': 'Right-Prelimbic',
+  'Right-Retrosplenial': 'Right-Retrosplenial',
+  'Right-Somatomotor': 'Right-Somatomotor',
+  'Right-Somatosensory': 'Right-Somatosensory',
+  'Right-Striatum': 'Right-Striatum',
+  'Right-Visceral': 'Right-Visceral',
+  'Right-Visual': 'Right-Visual', 
+  'Right-Agranular-insular-area': 'Right-Agranular-insular-area', 
+  'Right-Posterior-parietal-association-areas': 'Right-Posterior-parietal-association-areas', 
+  'Right-Temporal-association-areas': 'Right-Temporal-association-areas',
+  'Right-Perirhinal': 'Right-Perirhinal',
+  'Right-Ectorhinal': 'Right-Ectorhinal',
+}
+
+# subcortical areas for mouse atlas
+subcortMouseAreasIndexMap = {
+  'Left-Cerebellum':'Left-Cerebellum', # -1 means do not colour this region
+  'Left-Hypothalamus':'Left-Hypothalamus',
+  'Left-Frontal-pole': 'Left-Frontal-pole', # Acronym for Frontal pole, cerebral cortex,
+  'Left-Hippocampus': 'Left-Hippocampus',
+  'Left-Midbrain':'Left-Midbrain',
+  'Left-Pallidum': 'Left-Pallidum',
+  'Left-Thalamus':'Left-Thalamus',
+
+  'Right-Cerebellum':'Right-Cerebellum', # -1 means do not colour this region
+  'Right-Hypothalamus':'Right-Hypothalamus',
+  'Right-Frontal-pole': 'Right-Frontal-pole', # Acronym for Frontal pole, cerebral cortex,
+  'Right-Hippocampus': 'Right-Hippocampus',
+  'Right-Midbrain':'Right-Midbrain',
+  'Right-Pallidum': 'Right-Pallidum',
+  'Right-Thalamus':'Right-Thalamus'
 }
 
 

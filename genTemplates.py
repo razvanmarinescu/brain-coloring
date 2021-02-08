@@ -7,7 +7,7 @@ import numpy.random
 import config
 
 subcortFiles = list(config.subcortAreasIndexMap.values())
-
+subcortMouseFiles = list(config.subcortMouseAreasIndexMap.values())
 
 files = glob.glob('models/DK_atlas_pial/lh.*')
 files = list(np.sort([f.split('.')[3] for f in files])) + subcortFiles
@@ -75,3 +75,22 @@ tourvilleDf.loc[1,'Image-name-unique'] = 'Image_2'
 tourvilleDf.loc[1,files[0]:] = numpy.random.rand(nrBiomk) * 3
 tourvilleDf.to_csv('input/Tourville_template.csv', index=False)
 print(tourvilleDf)
+
+# generate templates for Mouse Atlas
+files = glob.glob('models/Mice_atlas_pial/fh*')
+files = list(np.sort([f.split('.')[3] for f in files])) + subcortMouseFiles
+
+
+mouseDict = dict(zip(files, files))
+print(files)
+print('MouseTemplate',mouseDict)
+print('\n\n')
+
+nrBiomk = len(files)
+mouseDf = pd.DataFrame(index=range(2), columns=['Image-name-unique'] + files)
+mouseDf.loc[0,'Image-name-unique'] = 'Image_1'
+mouseDf.loc[0,files[0]:] = numpy.random.rand(nrBiomk) * 3
+mouseDf.loc[1,'Image-name-unique'] = 'Image_2'
+mouseDf.loc[1,files[0]:] = numpy.random.rand(nrBiomk) * 3
+mouseDf.to_csv('input/mouse_template.csv', index=False)
+print(mouseDf)

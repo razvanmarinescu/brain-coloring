@@ -50,6 +50,9 @@ if ATLAS == 'DK':
 elif ATLAS == 'Destrieux':
   cortAreasIndexMap = config.cortAreasIndexMapDestrieux
   subcortAreasIndexMap = config.subcortAreasIndexMap
+elif ATLAS == 'Mice':
+  cortAreasIndexMap = config.cortAreasIndexMapMice
+  subcortAreasIndexMap = config.subcortMouseAreasIndexMap
 elif ATLAS == 'Tourville':
   cortAreasIndexMap = config.cortAreasIndexMapTourville
   subcortAreasIndexMap = config.subcortAreasIndexMap
@@ -66,66 +69,78 @@ subcortAreasShort = subcortAreasIndexMap.keys()
 cortRegionsThatShouldBeInTemplate = cortAreasIndexMap.values()
 subcortRegionsThatShouldBeInTemplate = subcortAreasIndexMap.values()
 
-
 cortFilesRight = ['models/%s_atlas_%s/rh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
 cortFilesLeft =  ['models/%s_atlas_%s/lh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
+
+cortFilesMouse = ['models/%s_atlas_%s/fh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
+
 cortFilesAll = cortFilesLeft + cortFilesRight
+
+if ATLAS == 'Mice': cortFilesAll = cortFilesMouse
+
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
 cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values())))
 
 
 
-
-subcortRightAreas = ['Right' + x[4:] for x in subcortAreasIndexMap.keys()]
-subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortAreasIndexMap.values()))
-subcortAreasIndexMap.update(subcortRightAreasIndexMap)
-subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
-subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
-
-
+if ATLAS == 'Mice':
+  subcortMiceAreas = [x[4:] for x in subcortAreasIndexMap.keys()]
+  subcortMiceAreasIndexMap = dict(zip(subcortMiceAreas, subcortAreasIndexMap.values()))
+  # subcortAreasIndexMap.update(subcortMiceAreasIndexMap)
+  subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
+  subcortFiles = ['./models/mouse_subcortical_ply/%s.ply' % x for x in subcortAreas]
+else:
+  subcortRightAreas = ['Right' + x[4:] for x in subcortAreasIndexMap.keys()]
+  subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortAreasIndexMap.values()))
+  subcortAreasIndexMap.update(subcortRightAreasIndexMap)
+  subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
+  subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
 
 nrSubcortRegions = len(subcortAreas)
 nrCortRegions = len(cortFilesAll)
 
+# merge cort and subcort index maps
+cortIndexMap = cortAreasIndexMap.copy()
+cortIndexMap.update(subcortAreasIndexMap) 
+fullIndexMap = cortIndexMap # for mouse brain and cross section view
+
 if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
-  painter = SubcorticalPainter(cortFilesRight,subcortFiles)
+  painter = SubcorticalPainter(cortFilesAll,subcortFiles)
   indexMap = subcortAreasIndexMap
   areasShort = subcortAreasShort
   regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
-
 # right side painter
 elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
-  painter = CorticalPainter(cortFilesRight)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainter(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap 
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'cortical-inner-right-hemisphere':
-  painter = CorticalPainterInnerRight(cortFilesRight)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterInnerRight(cortFilesRight, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
-  
 # left side painter
 elif IMG_TYPE == 'cortical-outer-left-hemisphere':
-  painter = CorticalPainterLeft(cortFilesAll)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterLeft(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'cortical-inner-left-hemisphere':
-  painter = CorticalPainterInnerLeft(cortFilesLeft)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterInnerLeft(cortFilesLeft, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'top': 
-  painter = CorticalPainterTop(cortFilesAll)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterTop(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 elif IMG_TYPE == 'bottom': 
-  painter = CorticalPainterBottom(cortFilesAll)
-  indexMap = cortAreasIndexMap
+  painter = CorticalPainterBottom(cortFilesAll, subcortFiles)
+  indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
 else:
