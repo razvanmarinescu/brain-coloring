@@ -29,7 +29,7 @@ Cortical - outer   | Cortical - inner   |  Subcortical
 
 ## Project Contributors
 
-We are looking for contributors to develop the project further. Please email me (razvan at csail.mit.edu) to discuss potential ideas. We are open to any interesting future directions, including:
+We are looking for contributors to develop the project further! Please email me (razvan at csail.mit.edu) to discuss potential ideas. We are open to any interesting future directions, including:
 * visualising other anatomical organs (e.g. heart, liver, ...)
 * visualising white-matter tracts in the brain
 * visualising toxic proteins present in the brain (e.g. amyloid, tau, ...)
