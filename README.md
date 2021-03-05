@@ -16,14 +16,25 @@ Cortical - outer   | Cortical - inner   |  Subcortical
 <span style="color:red">Sep 2019: BrainPainter can now be run straight from the browser:</span> https://brainpainter.csail.mit.edu/
 
 
+
 ## News
+
+* March 2021: Mouse BrainPainter almost ready, which will enable us to color mouse brains. We added the 3D models, and are finalizing the image generation. 
+
+* Oct 2020: BrainPainter v2 released. It can now color both hemispheres separately, can now show top/bottom views, abd can generate the colorbar in the report.tex/pdf in the zip file. 
 
 * Sept 2019: Our [paper](https://arxiv.org/abs/1905.08627) describing BrainPainter has been invited for an oral presentation at the MICCAI 2019 MBIA workshop in Shenzhen, China.
 
 * Aug 2019: In addition to the DK atlas, we now support two more atlases: Destrieux and Trouville. We also support inflated and white-matter surfaces.
 
-#
+## Project Contributors
 
+We are looking for contributors to develop the project further. Please email me (razvan at csail.mit.edu) to discuss potential ideas. We are open to any interesting future directions, including:
+* visualising other anatomical organs (e.g. heart, liver, ...)
+* visualising white-matter tracts in the brain
+* visualising toxic proteins present in the brain (e.g. amyloid, tau, ...)
+* creating better movies/animations of disease progression
+* any other ideas you might think is worth pursuing
 
 ## INPUT: 
 #### csv file with biomarkers (i.e. numbers) for each brain region, in a user-defined range (0-3 here): 0 - white, 1 - orange, 2 - light red 3 - dark red (colours can be changed)
