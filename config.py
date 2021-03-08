@@ -1,10 +1,10 @@
 
-INPUT_FILE = 'input/DK_template.csv' # input template should match ATLAS below
+INPUT_FILE = 'input/mouse_template.csv' # input template should match ATLAS below
 
-OUTPUT_FOLDER = 'output/DK_output'
+OUTPUT_FOLDER = 'output/t4'
 
 # either 'DK', 'Destrieux', 'Tourville', 'Mice' or 'Custom'
-ATLAS = 'DK'
+ATLAS = 'Mice'
 
 # either 'pial' (with gyri/sulci), 'inflated' (smooth) or 'white' (white-matter surface)
 BRAIN_TYPE = 'pial'
@@ -12,7 +12,7 @@ BRAIN_TYPE = 'pial'
 # either cortical-outer, cortical-inner, subcortical 
 # add -right-hemisphere or -left-hemisphere to end of image type to specify view
 # image types "top" and "bottom" are available to show asymmetry
-IMG_TYPE = 'cortical-outer-right-hemisphere'
+IMG_TYPE = 'bottom'
 
 # what colours to use for showing brain pathology
 # e.g. if the range of pathology is [0,3],

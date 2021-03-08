@@ -1,2 +1,2 @@
 all:
-	configFile=config.py blender --background --python blendCreateSnapshot.py
+	configFile=config.py /Applications/Blender/blender.app/Contents/MacOS/blender --background --python blendCreateSnapshot.py

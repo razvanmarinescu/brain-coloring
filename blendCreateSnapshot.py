@@ -70,7 +70,6 @@ cortAreas = []
 cortRegionsThatShouldBeInTemplate = cortAreasIndexMap.values()
 subcortRegionsThatShouldBeInTemplate = subcortAreasIndexMap.values()
 
-print(cortAreasList)
 for mesh in cortAreasList:
   if 'Right-' in mesh:
     cortAreas.append(mesh.replace('Right-', ''))
@@ -80,9 +79,6 @@ cortAreas = list(set(cortAreas)) # remove duplicated items
 
 cortFilesRight = ['models/%s_atlas_%s/rh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
 cortFilesLeft =  ['models/%s_atlas_%s/lh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
-
-print(len(cortFilesRight))
-print(len(cortFilesLeft))
 
 
 cortFilesAll = list(set(cortFilesLeft + cortFilesRight))
@@ -95,7 +91,6 @@ cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values
 if ATLAS == 'Mice':
   subcortMiceAreas = [x[4:] for x in subcortAreasIndexMap.keys()]
   subcortMiceAreasIndexMap = dict(zip(subcortMiceAreas, subcortAreasIndexMap.values()))
-  # subcortAreasIndexMap.update(subcortMiceAreasIndexMap)
   subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
   subcortFiles = ['./models/mouse_subcortical_ply/%s.ply' % x for x in subcortAreas]
 else:
@@ -104,6 +99,7 @@ else:
   subcortAreasIndexMap.update(subcortRightAreasIndexMap)
   subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
   subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
+
 
 nrSubcortRegions = len(subcortAreas)
 nrCortRegions = len(cortFilesAll)
@@ -122,8 +118,8 @@ if IMG_TYPE == 'subcortical':
 # right side painter
 elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
-  painter = CorticalPainter(cortFilesRight)
   if ATLAS == 'Mice': painter = CorticalPainter(cortFilesAll, subcortFiles)
+  else: painter = CorticalPainter(cortFilesRight)
   indexMap = fullIndexMap 
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate

@@ -19,7 +19,7 @@ Cortical - outer   | Cortical - inner   |  Subcortical
 
 ## News
 
-* March 2021: Mouse BrainPainter almost ready, which will enable us to color mouse brains. We added the 3D models, and are finalizing the image generation. 
+* March 2021: Mouse BrainPainter ready. To run, see the [Running Mouse BrainPainter](#Running-Mouse-BrainPainter) section.
 
 * Oct 2020: BrainPainter v2 released. It can now color both hemispheres separately, can now show top/bottom views, abd can generate the colorbar in the report.tex/pdf in the zip file. 
 
@@ -191,3 +191,17 @@ Note that this is harder due to the need of installing packages in the python ve
 5. If using docker, copy the image out of the docker container to the home directory ~/ :
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/DK_output/Image_1_cortical-outer.png ~/ ```
+
+# Running Mouse BrainPainter
+
+Cortical - outer    | Top   |  Subcortical
+:-------------------------:|:------------------:|:-----------------:
+![Cortical surface](output/pcaCover/mouse-cort-outer.png) | ![Cortical surface top](output/pcaCover/mouse-top.png)   |  ![Subcortical structures](output/pcaCover/mouse-subcortical.png) 
+
+1. Create a new mouse_experiment.csv file with pathology data using the template found at input/mouse_template.csv. 
+
+2. Make sure to set the ATLAS in the config.py file to 'Mice'
+
+3. Run the same steps in the [Running the software](#Running-the-software) section to generate images
+
+

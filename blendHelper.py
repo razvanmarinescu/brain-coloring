@@ -86,7 +86,7 @@ class BrainPainter(ABC):
 
 
 class CorticalPainter(BrainPainter):
-  def __init__(self, cortFiles, *subcortFiles):
+  def __init__(self, cortFiles, subcortFiles=''):
     self.cortFiles = cortFiles
     self.subcortFiles = subcortFiles
 
@@ -160,7 +160,7 @@ class CorticalPainter(BrainPainter):
 
 class CorticalPainterLeft(BrainPainter):
   
-  def __init__(self, cortFiles, *subcortFiles):
+  def __init__(self, cortFiles, subcortFiles=''):
     self.cortFiles = cortFiles
     self.subcortFiles = subcortFiles
     
