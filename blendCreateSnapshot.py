@@ -63,20 +63,29 @@ elif ATLAS == 'Custom':
 else:
   raise ValueError('ATLAS has to be either \'DK\', \'Destrieux\', \'Tourville\' or \'Custom\' ')
 
-cortAreas = cortAreasIndexMap.keys()
+cortAreasList = cortAreasIndexMap.keys()
 subcortAreasShort = subcortAreasIndexMap.keys()
+cortAreas = []
 
 cortRegionsThatShouldBeInTemplate = cortAreasIndexMap.values()
 subcortRegionsThatShouldBeInTemplate = subcortAreasIndexMap.values()
 
+print(cortAreasList)
+for mesh in cortAreasList:
+  if 'Right-' in mesh:
+    cortAreas.append(mesh.replace('Right-', ''))
+  elif 'Left-' in mesh:
+    cortAreas.append(mesh.replace('Left-', ''))
+cortAreas = list(set(cortAreas)) # remove duplicated items
+
 cortFilesRight = ['models/%s_atlas_%s/rh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
 cortFilesLeft =  ['models/%s_atlas_%s/lh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
 
-cortFilesMouse = ['models/%s_atlas_%s/fh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRAIN_TYPE, ATLAS, x) for x in cortAreas]
+print(len(cortFilesRight))
+print(len(cortFilesLeft))
 
-cortFilesAll = cortFilesLeft + cortFilesRight
 
-if ATLAS == 'Mice': cortFilesAll = cortFilesMouse
+cortFilesAll = list(set(cortFilesLeft + cortFilesRight))
 
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
 cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values())))
@@ -106,14 +115,15 @@ fullIndexMap = cortIndexMap # for mouse brain and cross section view
 
 if IMG_TYPE == 'subcortical':
   #loadSubcortical(cortFilesRight,subcortFiles)
-  painter = SubcorticalPainter(cortFilesAll,subcortFiles)
+  painter = SubcorticalPainter(cortFilesRight,subcortFiles)
   indexMap = subcortAreasIndexMap
   areasShort = subcortAreasShort
   regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
 # right side painter
 elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
-  painter = CorticalPainter(cortFilesAll, subcortFiles)
+  painter = CorticalPainter(cortFilesRight)
+  if ATLAS == 'Mice': painter = CorticalPainter(cortFilesAll, subcortFiles)
   indexMap = fullIndexMap 
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
@@ -122,9 +132,11 @@ elif IMG_TYPE == 'cortical-inner-right-hemisphere':
   indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
+
 # left side painter
 elif IMG_TYPE == 'cortical-outer-left-hemisphere':
-  painter = CorticalPainterLeft(cortFilesAll, subcortFiles)
+  painter = CorticalPainterLeft(cortFilesLeft)
+  if ATLAS == 'Mice': painter = CorticalPainterLeft(cortFilesLeft, subcortFiles)
   indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate

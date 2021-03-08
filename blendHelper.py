@@ -86,7 +86,7 @@ class BrainPainter(ABC):
 
 
 class CorticalPainter(BrainPainter):
-  def __init__(self, cortFiles, subcortFiles):
+  def __init__(self, cortFiles, *subcortFiles):
     self.cortFiles = cortFiles
     self.subcortFiles = subcortFiles
 
@@ -160,7 +160,7 @@ class CorticalPainter(BrainPainter):
 
 class CorticalPainterLeft(BrainPainter):
   
-  def __init__(self, cortFiles, subcortFiles):
+  def __init__(self, cortFiles, *subcortFiles):
     self.cortFiles = cortFiles
     self.subcortFiles = subcortFiles
     
@@ -314,9 +314,6 @@ class CorticalPainterInnerLeft(CorticalPainter):
 
   def loadMeshes(self):
     # import cortical regions and set them to be almost transparent
-    for i in range(len(self.cortFiles)):
-      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
-
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
 
