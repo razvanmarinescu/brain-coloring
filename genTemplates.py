@@ -8,15 +8,15 @@ import config
 
 subcortFiles = list(config.subcortAreasIndexMap.values())
 subcortMouseFiles = list(config.subcortMouseAreasIndexMap.values())
+destrieuxFiles = list(config.cortAreasIndexMapDestrieux.keys())
+DKFiles = list(config.cortAreasIndexMapDK.keys())
+miceFiles = list(config.cortAreasIndexMapMice.keys())
+tourvilleFiles = list(config.cortAreasIndexMapTourville.keys())
+tourvilleFiles = list(config.cortAreasIndexMapTourville.keys())
 
-def templateCreator(path, templateName, subcorticalFiles, nrImages, inputLocation): 
+def templateCreator(indexMap, templateName, subcorticalFiles, nrImages, inputLocation): 
   # makes templates for each atlas
-  filesLeft = glob.glob(path + 'lh.*')
-  filesLeft = list(np.sort(['Left-' + f.split('.')[3] for f in filesLeft])) 
-
-  filesRight = glob.glob(path + 'rh.*')
-  filesRight = list(np.sort(['Right-' + f.split('.')[3] for f in filesRight]))
-  files = filesLeft + filesRight + subcorticalFiles
+  files = indexMap + subcorticalFiles
 
   atlasDict = dict(zip(files, files))
   print(files)
@@ -35,19 +35,19 @@ def templateCreator(path, templateName, subcorticalFiles, nrImages, inputLocatio
 
 
 # DK template many
-templateCreator('models/DK_atlas_pial/', 'DK', subcortFiles, 20, 'input/DK_template.csv')
+templateCreator(DKFiles, 'DK', subcortFiles, 20, 'input/DK_template.csv')
 
 # DK template
-templateCreator('models/DK_atlas_pial/', 'DK', subcortFiles, 2, 'input/DK_template.csv')
+templateCreator(DKFiles, 'DK', subcortFiles, 2, 'input/DK_template.csv')
 
 # destrieux template
-templateCreator('models/Destrieux_atlas_pial/', 'Destrieux', subcortFiles, 2, 'input/Destrieux_template.csv') 
+templateCreator(destrieuxFiles, 'Destrieux', subcortFiles, 2, 'input/Destrieux_template.csv') 
 
 # tourville template
-templateCreator('models/DKT_atlas_pial/', 'Tourville', subcortFiles, 2, 'input/Tourville_template.csv') 
+templateCreator(tourvilleFiles, 'Tourville', subcortFiles, 2, 'input/Tourville_template.csv') 
 
 # mouse template
-templateCreator('models/Mice_atlas_pial/', 'MouseTemplate', subcortMouseFiles, 2, 'input/mouse_template.csv') 
+templateCreator(miceFiles, 'MouseTemplate', subcortMouseFiles, 2, 'input/mouse_template.csv') 
 
 
 
