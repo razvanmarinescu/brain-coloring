@@ -84,8 +84,15 @@ cortFilesLeft =  ['models/%s_atlas_%s/lh.%s.%s.%s.ply' % (ATLAS, BRAIN_TYPE, BRA
 cortFilesAll = list(set(cortFilesLeft + cortFilesRight))
 
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
-cortAreasIndexMap = dict(zip(cortAreasNamesFull, 2*list(cortAreasIndexMap.values())))
 
+cortAreasNamesMatching = [] # for the new mesh order
+for mesh in cortAreasNamesFull:
+  if 'rh.' in mesh:
+    cortAreasNamesMatching.append('Right-' + mesh.split(".")[-1])
+  elif 'lh.' in mesh:
+    cortAreasNamesMatching.append('Left-' + mesh.split(".")[-1])
+
+cortAreasIndexMap = dict(zip(cortAreasNamesFull, cortAreasNamesMatching))
 
 
 if ATLAS == 'Mice':
