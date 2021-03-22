@@ -128,6 +128,8 @@ A LaTeX file will also be generated in the same folder and will load the images,
 
 # Installation without Docker (only for advanced users)
 
+[This](https://www.youtube.com/watch?v=rzGb40PUVX8) video can help walk you through the installation process. 
+
 Note that this is harder due to the need of installing packages in the python version bundled with blender. 
 
 1. Install blender 2.79 from https://www.blender.org/download/releases/2-79/
@@ -192,6 +194,19 @@ Note that this is harder due to the need of installing packages in the python ve
 
     ``` sudo docker cp <yourContainerID>:/home/brain-coloring/output/DK_output/Image_1_cortical-outer.png ~/ ```
 
+# Generating animations
+
+Using the csv2movie script, you can span your data over multiple points and generate multiple frames for their images. This makes it easier to show pathologies in movies. This script takes the differences between the data points in your input and splits them up into more frames. 
+
+1. Add information to the csv2movie file including: input csv data, output csv location, atlas
+
+2. Run the script (make sure you have numpy and pandas in your virtual environment)
+   
+   ``` python ./csv2movie.py ```
+
+3. Follow the instructions in the [Running the software](#Running-the-software) section and make sure to change the input data in your config file to the new movie template that was generated. 
+
+4. Use imagemagick to stitch together these multiple frames into a gif. If you prefer to use an online version, [this](https://ezgif.com/maker) can help you generate gif's and mp4's easily. 
 # Running Mouse BrainPainter
 
 Cortical - outer    | Top   |  Subcortical
