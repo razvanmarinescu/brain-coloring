@@ -521,7 +521,9 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
         if regionName in indexMap.keys():
           # 'Left-Caudate -> nonZlabelNr -> [z-labelNrs], between 1-3'
           targetLabel = indexMap[regionName]
-          if targetLabel != -1:
+
+          # need to come back and make this applicable to all subcort config after adding l/r for subcort
+          if targetLabel != -1 and 'unknown' not in targetLabel: 
 
 
             # abnormality values for each significance levels
