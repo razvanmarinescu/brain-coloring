@@ -136,9 +136,11 @@ Note that this is harder due to the need of installing packages in the python ve
 
 You can also download blender 2.79 with all the necessary packages installed into the blender version of python at the following links:
 
-a. You can find the ubuntu version [here](https://drive.google.com/file/d/1HBENRhMB3UPLQOBLmn6mDZEgU33RD-og/view)
+a. You can find the Ubuntu/Deb version [here](https://drive.google.com/file/d/1HBENRhMB3UPLQOBLmn6mDZEgU33RD-og/view)
 
 b. You can find the MacOS version [here](https://drive.google.com/file/d/1OBI6t5OvetllQ4USh2mMNW2Jbq1pboyX/view)
+
+c. You can find the Windows version [here](https://drive.google.com/file/d/1tYki59PnxvQFvCScNkDSctYsdmwJrT4Z/view)
 
 2. Pull the git repository: 
 
