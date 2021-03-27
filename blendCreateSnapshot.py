@@ -86,11 +86,11 @@ cortFilesAll = list(set(cortFilesLeft + cortFilesRight))
 cortAreasNamesFull = [x.split("/")[-1][:-4] for x in cortFilesAll]
 
 cortAreasNamesMatching = [] # for the new mesh order
-for mesh in cortAreasNamesFull:
+for index, mesh in enumerate(cortAreasNamesFull):
   if 'rh.' in mesh:
-    cortAreasNamesMatching.append('Right-' + mesh.split(".")[-1])
+    cortAreasNamesMatching.append(cortAreasIndexMap.get('Right-' + mesh.split(".")[-1]))
   elif 'lh.' in mesh:
-    cortAreasNamesMatching.append('Left-' + mesh.split(".")[-1])
+    cortAreasNamesMatching.append(cortAreasIndexMap.get('Left-' + mesh.split(".")[-1]))
 
 cortAreasIndexMap = dict(zip(cortAreasNamesFull, cortAreasNamesMatching))
 
@@ -101,9 +101,8 @@ if ATLAS == 'Mice':
   subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
   subcortFiles = ['./models/mouse_subcortical_ply/%s.ply' % x for x in subcortAreas]
 else:
-  subcortRightAreas = ['Right' + x[4:] for x in subcortAreasIndexMap.keys()]
-  subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortAreasIndexMap.values()))
-  subcortAreasIndexMap.update(subcortRightAreasIndexMap)
+  subcortRightAreas = [x[4:] for x in subcortAreasIndexMap.keys()]
+  subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortRegionsThatShouldBeInTemplate))
   subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
   subcortFiles = ['./models/subcortical_ply/%s.ply' % x for x in subcortAreas]
 

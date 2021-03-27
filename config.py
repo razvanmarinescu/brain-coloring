@@ -509,31 +509,58 @@ cortAreasIndexMapCustom = {
 # Subcortical areas
 # this map is used by all atlases (DK, Destrieux, Tourville)
 subcortAreasIndexMap = {
-  'Left-Accumbens-area':'Accumbens-area', # -1 means do not colour this region
-  'Left-Caudate':'Caudate',
-  'Left-Cerebellum-White-Matter':'Cerebellum-White-Matter',
-  'Left-Inf-Lat-Vent': 'Inf-Lat-Vent',
-  'Left-Pallidum':'Pallidum',
-  'Left-Thalamus-Proper':'Thalamus-Proper',
-  'Left-Amygdala':'Amygdala',
-  'Left-Cerebellum-Cortex':'Cerebellum-Cortex',
-  'Left-Hippocampus':'Hippocampus',
-  'Left-Lateral-Ventricle':'Lateral-Ventricle',
-  'Left-Putamen':'Putamen',
-  'Left-VentralDC':'VentralDC'}
+  'Left-Accumbens-area': 'Left-Accumbens-area', # -1 means do not colour this region
+  'Left-Caudate': 'Left-Caudate',
+  'Left-Cerebellum-White-Matter': 'Left-Cerebellum-White-Matter',
+  'Left-Inf-Lat-Vent': 'Left-Inf-Lat-Vent',
+  'Left-Pallidum': 'Left-Pallidum',
+  'Left-Thalamus-Proper': 'Left-Thalamus-Proper',
+  'Left-Amygdala': 'Left-Amygdala',
+  'Left-Cerebellum-Cortex': 'Left-Cerebellum-Cortex',
+  'Left-Hippocampus': 'Left-Hippocampus',
+  'Left-Lateral-Ventricle': 'Left-Lateral-Ventricle',
+  'Left-Putamen': 'Left-Putamen',
+  'Left-VentralDC': 'Left-VentralDC', 
+
+  'Right-Accumbens-area': 'Right-Accumbens-area', # -1 means do not colour this region
+  'Right-Caudate': 'Right-Caudate',
+  'Right-Cerebellum-White-Matter': 'Right-Cerebellum-White-Matter',
+  'Right-Inf-Lat-Vent': 'Right-Inf-Lat-Vent',
+  'Right-Pallidum': 'Right-Pallidum',
+  'Right-Thalamus-Proper': 'Right-Thalamus-Proper',
+  'Right-Amygdala': 'Right-Amygdala',
+  'Right-Cerebellum-Cortex': 'Right-Cerebellum-Cortex',
+  'Right-Hippocampus': 'Right-Hippocampus',
+  'Right-Lateral-Ventricle': 'Right-Lateral-Ventricle',
+  'Right-Putamen': 'Right-Putamen',
+  'Right-VentralDC': 'Right-VentralDC'
+  }
 
 
 subcortAreasIndexMapCustom = {
-  'Left-Accumbens-area':'accumbens', # -1 means do not colour this region
-  'Left-Caudate':'caudate',
+  'Left-Accumbens-area':'Left-Accumbens-area', # -1 means do not colour this region
+  'Left-Caudate':'Left-Caudate',
   'Left-Cerebellum-White-Matter':-1,
   'Left-Inf-Lat-Vent':-1,
-  'Left-Pallidum':'pallidum',
-  'Left-Thalamus-Proper':'thalamus',
-  'Left-Amygdala':'amygdala',
+  'Left-Pallidum':'Left-Pallidum',
+  'Left-Thalamus-Proper':'Left-Thalamus',
+  'Left-Amygdala':'Left-Amygdala',
   'Left-Cerebellum-Cortex':-1,
-  'Left-Hippocampus':'hippocampus',
+  'Left-Hippocampus':'Left-Hippocampus',
   'Left-Lateral-Ventricle':-1,
-  'Left-Putamen':'putamen',
-  'Left-VentralDC':'ventral dc'
+  'Left-Putamen':'Left-Putamen',
+  'Left-VentralDC':'Left-VentralDC',
+
+  'Right-Accumbens-area':'Right-Accumbens-area', # -1 means do not colour this region
+  'Right-Caudate':'Right-Caudate',
+  'Right-Cerebellum-White-Matter':-1,
+  'Right-Inf-Lat-Vent':-1,
+  'Right-Pallidum':'Right-Pallidum',
+  'Right-Thalamus-Proper':'Right-Thalamus',
+  'Right-Amygdala':'Right-Amygdala',
+  'Right-Cerebellum-Cortex':-1,
+  'Right-Hippocampus':'Right-Hippocampus',
+  'Right-Lateral-Ventricle':-1,
+  'Right-Putamen':'Right-Putamen',
+  'Right-VentralDC':'Right-VentralDC'
 }
