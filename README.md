@@ -227,4 +227,35 @@ Cortical - outer    | Top   |  Subcortical
 
 3. Run the same steps in the [Running the software](#Running-the-software) section to generate images
 
+# Frequently Asked Questions
+
+* ***I'm getting an error when I call the make command:***
+
+```/bin/sh: 1: blender: not found```
+
+This means that the Blender software is not in your path. You can replace "blender" in the Makefile with the path to your blender application if that's more convenient instead of adding blender to path. 
+
+* ***How do I generate animations with BrainPainter***
+
+Check out our section on [generating animations](#Generating-Animations)
+
+* ***What are the different viewing angles that we can render images with?***
+
+1. Cortical-Top
+2. Cortical-Bottom
+3. Cortical-outer-right-hemisphere
+4. Cortical-outer-left-hemisphere
+5. Cortical-inner-right-hemisphere (note that this is not compatible with the mouse atlas)
+6. Cortical-inner-left-hemisphere (note that this is not compatible with the mouse atlas)
+7. subcortical-top
+8. subcortical-bottom
+9. subcortical-outer-right-hemisphere
+10. subcortical-outer-left-hemisphere
+
+Have a viewing angle in mind that isn't here? You can run blender interactively by removing '--background' from the makefile and render the images from the blender app. You can also open an *issue* on this github page. 
+
+* ***We will keep adding questions to this list, so if you have one in mind feel free to make an issue and we will add it here.*** 
+
+
+
 

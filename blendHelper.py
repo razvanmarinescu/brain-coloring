@@ -456,6 +456,253 @@ class SubcorticalPainter(BrainPainter):
       lamp_data.energy = energyAll
       lamp_data.distance = distanceAll
 
+class SubcorticalPainterLeft(BrainPainter):
+  def __init__(self, cortFiles, subcortFiles):
+    self.cortFiles = cortFiles
+    self.subcortFiles = subcortFiles
+
+  # def loadSubcortical(self, cortFiles, subcortFiles):
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 0.1)
+          obj.data.materials.append(material)
+        else:
+          bpy.data.materials['mat_%s' % regionName].diffuse_color = (0.3, 0.3, 0.3)
+          bpy.data.materials['mat_%s' % regionName].alpha = 1
+
+        obj.select = False
+
+    # import subcortical regions
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1)
+          obj.data.materials.append(material)
+        else:
+          # assert(False)
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+    self.prepareCamera(resolution, fov)
+
+    # scene.camera.rotation_euler = (1.15, -0.02, -8.63) # subcort only
+    # scene.camera.rotation_euler = (1.1499, -0.01999, -8.2985)  # half-cort half subcort
+
+    # Set camera translation
+    # scene.camera.location = (-107.3, 66.8, 43.1) # subcort only
+    scene.camera.location = (177.16, 69.74, 83.1)  # half cort half subcort
+    
+    # pi = 3.14159265
+    scene.camera.rotation_euler = (1.204, 0, 2.02)
+
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+
+    energyAll = 7
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2]
+    lampLocs = [(82.53, 0.79, 72.87), (-88.53, -119.79, 72.87)]
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
+
+class SubcorticalPainterTop(BrainPainter):
+  def __init__(self, cortFiles, subcortFiles):
+    self.cortFiles = [] # cortical files would obstruct top view of subcort meshes
+    self.subcortFiles = subcortFiles
+
+  # def loadSubcortical(self, cortFiles, subcortFiles):
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 0.1)
+          obj.data.materials.append(material)
+        else:
+          bpy.data.materials['mat_%s' % regionName].diffuse_color = (0.3, 0.3, 0.3)
+          bpy.data.materials['mat_%s' % regionName].alpha = 1
+
+        obj.select = False
+
+    # import subcortical regions
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1)
+          obj.data.materials.append(material)
+        else:
+          # assert(False)
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+    self.prepareCamera(resolution, fov)
+
+    # scene.camera.rotation_euler = (1.15, -0.02, -8.63) # subcort only
+    # scene.camera.rotation_euler = (1.1499, -0.01999, -8.2985)  # half-cort half subcort
+
+    # Set camera translation
+    # scene.camera.location = (-107.3, 66.8, 43.1) # subcort only
+    scene.camera.location = (0, -29, 200.25)  # half cort half subcort
+    
+    pi = 3.14159265
+    scene.camera.rotation_euler = (0, 0, pi/2)
+
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+
+    energyAll = 7
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    lampLocs = [(-45, 45, 150), (45, 45, 150), (45, -100, 150), (-45, -100, 150)]
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
+
+class SubcorticalPainterBottom(BrainPainter):
+  def __init__(self, cortFiles, subcortFiles):
+    self.cortFiles = [] # cortical files would obstruct bottom view of subcort meshes
+    self.subcortFiles = subcortFiles
+
+  # def loadSubcortical(self, cortFiles, subcortFiles):
+  def loadMeshes(self):
+    # import cortical regions and set them to be almost transparent
+    for i in range(len(self.cortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 0.1)
+          obj.data.materials.append(material)
+        else:
+          bpy.data.materials['mat_%s' % regionName].diffuse_color = (0.3, 0.3, 0.3)
+          bpy.data.materials['mat_%s' % regionName].alpha = 1
+
+        obj.select = False
+
+    # import subcortical regions
+    for i in range(len(self.subcortFiles)):
+      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
+
+    if bpy.context.selected_objects:
+      for obj in bpy.context.selected_objects:
+        regionName = obj.name
+        if not 'mat_%s' % regionName in bpy.data.materials.keys():
+          material = makeMaterial('mat_%s' % regionName, (0.3, 0.3, 0.3), (1, 1, 1), 1)
+          obj.data.materials.append(material)
+        else:
+          # assert(False)
+          material = bpy.data.materials['mat_%s' % regionName]
+          material.diffuse_color = (0.3, 0.3, 0.3)
+          material.alpha = 1
+          obj.data.materials.append(material)
+
+  def setCamera(self, resolution, fov, ortho_scale, BRAIN_TYPE):
+
+    scene = bpy.data.scenes["Scene"]
+    self.prepareCamera(resolution, fov)
+
+    # scene.camera.rotation_euler = (1.15, -0.02, -8.63) # subcort only
+    # scene.camera.rotation_euler = (1.1499, -0.01999, -8.2985)  # half-cort half subcort
+
+    # Set camera translation
+    # scene.camera.location = (-107.3, 66.8, 43.1) # subcort only
+
+    pi = 3.14159265
+    scene.camera.rotation_euler = (pi, 0, pi/2)
+
+    # Set camera location
+    scene.camera.location = (0, -33.8, -209.46)
+
+    bpy.data.cameras['Camera'].clip_end = 1000
+
+  def setLamp(self, BRAIN_TYPE):
+
+    energyAll = 7
+    distanceAll = 1000
+
+    scene = bpy.data.scenes["Scene"]
+    self.deletePrevLamps()
+
+    lampIndices = [1, 2, 3, 4]
+    lampLocs = [(-45, 45, -150), (45, 45, -150), (45, -100, -150), (-45, -100, -150)]
+
+    nrLamps = len(lampIndices)
+
+    for l in range(nrLamps):
+      # Create new lamp datablock
+      lamp_data = bpy.data.lamps.new(name="lamp%d data" % lampIndices[l], type='POINT')
+      # Create new object with our lamp datablock
+      lamp = bpy.data.objects.new(name="Lamp%d" % lampIndices[l], object_data=lamp_data)
+      # Link lamp object to the scene so it'll appear in this scene
+      scene.objects.link(lamp)
+      # Place lamp to a specified location
+      scene.objects['Lamp%d' % lampIndices[l]].location = lampLocs[l]
+      lamp_data.energy = energyAll
+      lamp_data.distance = distanceAll
 
 def delobj():
   scene = bpy.data.scenes["Scene"]

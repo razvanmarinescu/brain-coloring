@@ -115,12 +115,28 @@ cortIndexMap = cortAreasIndexMap.copy()
 cortIndexMap.update(subcortAreasIndexMap) 
 fullIndexMap = cortIndexMap # for mouse brain and cross section view
 
-if IMG_TYPE == 'subcortical':
-  #loadSubcortical(cortFilesRight,subcortFiles)
+if IMG_TYPE == 'subcortical-outer-right-hemisphere' or IMG_TYPE == 'subcortical':
   painter = SubcorticalPainter(cortFilesRight,subcortFiles)
   indexMap = subcortAreasIndexMap
   areasShort = subcortAreasShort
   regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
+elif IMG_TYPE == 'subcortical-outer-left-hemisphere':
+  painter = SubcorticalPainterLeft(cortFilesLeft,subcortFiles)
+  indexMap = subcortAreasIndexMap
+  areasShort = subcortAreasShort
+  regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
+elif IMG_TYPE == 'subcortical-top':
+  painter = SubcorticalPainterTop(cortFilesLeft,subcortFiles)
+  indexMap = subcortAreasIndexMap
+  areasShort = subcortAreasShort
+  regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
+elif IMG_TYPE == 'subcortical-bottom':
+  painter = SubcorticalPainterBottom(cortFilesLeft,subcortFiles)
+  indexMap = subcortAreasIndexMap
+  areasShort = subcortAreasShort
+  regionsThatShouldBeInTemplate = subcortRegionsThatShouldBeInTemplate
+
+# cortical painters  
 # right side painter
 elif IMG_TYPE == 'cortical-outer-right-hemisphere':
   # loadCortical(cortFilesAll)
@@ -147,12 +163,12 @@ elif IMG_TYPE == 'cortical-inner-left-hemisphere':
   indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
-elif IMG_TYPE == 'top': 
+elif IMG_TYPE == 'cortical-top' or IMG_TYPE == 'top': 
   painter = CorticalPainterTop(cortFilesAll, subcortFiles)
   indexMap = fullIndexMap
   areasShort = cortAreas
   regionsThatShouldBeInTemplate = cortRegionsThatShouldBeInTemplate
-elif IMG_TYPE == 'bottom': 
+elif IMG_TYPE == 'cortical-bottom' or IMG_TYPE == 'bottom': 
   painter = CorticalPainterBottom(cortFilesAll, subcortFiles)
   indexMap = fullIndexMap
   areasShort = cortAreas
@@ -190,4 +206,5 @@ text = genLaTex(INPUT_FILE, OUT_FOLDER, COLORS_RGB)
 os.system('mkdir -p %s' % outFolderCurrMat)
 out = open('%s/report.tex' % outFolderCurrMat, 'w')
 out.write(text)
+print("")
 out.close()
