@@ -244,9 +244,6 @@ class CorticalPainterInnerRight(CorticalPainter):
     for i in range(len(self.cortFiles)):
       bpy.ops.import_mesh.ply(filepath=self.cortFiles[i])
 
-    for i in range(len(self.subcortFiles)):
-      bpy.ops.import_mesh.ply(filepath=self.subcortFiles[i])
-
     if bpy.context.selected_objects:
       for obj in bpy.context.selected_objects:
         regionName = obj.name
