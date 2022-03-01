@@ -57,6 +57,12 @@ elif ATLAS == 'Tourville':
   cortAreasIndexMap = config.cortAreasIndexMapTourville
   subcortAreasIndexMap = config.subcortAreasIndexMap
   ATLAS = 'DKT' # actually 3D models are labelled as DKT
+elif ATLAS == 'Dorr':
+  cortAreasIndexMap = config.cortAreasIndexMapDorr
+  subcortAreasIndexMap = config.subcortDorrAreasIndexMap
+elif ATLAS == 'Dsurque':
+  cortAreasIndexMap = config.cortAreasIndexMapDsurque
+  subcortAreasIndexMap = config.subcortDsurqueAreasIndexMap
 elif ATLAS == 'Custom':
   cortAreasIndexMap = config.cortAreasIndexMapCustom
   subcortAreasIndexMap = config.subcortAreasIndexMapCustom

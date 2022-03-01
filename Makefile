@@ -1,2 +1,2 @@
 all:
-	configFile=config.py blender --background --python blendCreateSnapshot.py
+	configFile=config.py blender --python blendCreateSnapshot.py

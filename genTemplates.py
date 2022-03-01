@@ -8,11 +8,15 @@ import config
 
 subcortFiles = list(config.subcortAreasIndexMap.values())
 subcortMouseFiles = list(config.subcortMouseAreasIndexMap.values())
+subcortDorrFiles = list(config.subcortDorrAreasIndexMap.values())
+subcortDsurqueFiles = list(config.subcortDsurqueAreasIndexMap.values())
 destrieuxFiles = list(config.cortAreasIndexMapDestrieux.keys())
 DKFiles = list(config.cortAreasIndexMapDK.keys())
 miceFiles = list(config.cortAreasIndexMapMice.keys())
 tourvilleFiles = list(config.cortAreasIndexMapTourville.keys())
 tourvilleFiles = list(config.cortAreasIndexMapTourville.keys())
+dorrFiles = list(config.cortAreasIndexMapDorr.keys())
+dsurqueFiles = list(config.cortAreasIndexMapDsurque.keys())
 
 def templateCreator(indexMap, templateName, subcorticalFiles, nrImages, inputLocation): 
   # makes templates for each atlas
@@ -47,5 +51,11 @@ templateCreator(destrieuxFiles, 'Destrieux', subcortFiles, 2, 'input/Destrieux_t
 templateCreator(tourvilleFiles, 'Tourville', subcortFiles, 2, 'input/Tourville_template.csv') 
 
 # mouse template
-templateCreator(miceFiles, 'MouseTemplate', subcortMouseFiles, 2, 'input/mouse_template.csv') 
+templateCreator(miceFiles, 'MouseTemplate', subcortMouseFiles, 2, 'input/mouse_template.csv')
+
+# dorr template
+templateCreator(dorrFiles, 'DorrTemplate', subcortDorrFiles, 2, 'input/dorr_template.csv')
+
+# dsurque template
+templateCreator(dorrFiles, 'DsurqueTemplate', subcortDsurqueFiles, 2, 'input/dsurque_template.csv')
 
