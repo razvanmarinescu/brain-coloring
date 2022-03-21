@@ -1,7 +1,7 @@
 from os import listdir
 from os.path import isfile, join
 
-mypath = './models/Dsurque_ply'
+mypath = './models/Dsurque_atlas_pial'
 
 onlyfiles = [f for f in listdir(mypath)]
 

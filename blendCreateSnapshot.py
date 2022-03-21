@@ -106,6 +106,16 @@ if ATLAS == 'Mice':
   subcortMiceAreasIndexMap = dict(zip(subcortMiceAreas, subcortAreasIndexMap.values()))
   subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
   subcortFiles = ['./models/mouse_subcortical_ply/%s.ply' % x for x in subcortAreas]
+elif ATLAS == 'Dorr':
+  subcortMiceAreas = [x[4:] for x in subcortAreasIndexMap.keys()]
+  subcortMiceAreasIndexMap = dict(zip(subcortMiceAreas, subcortAreasIndexMap.values()))
+  subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
+  subcortFiles = ['./models/Dorr_subcortical_ply/%s.ply' % x for x in subcortAreas]
+elif ATLAS == 'Dsurque':
+  subcortMiceAreas = [x[4:] for x in subcortAreasIndexMap.keys()]
+  subcortMiceAreasIndexMap = dict(zip(subcortMiceAreas, subcortAreasIndexMap.values()))
+  subcortAreas = [x for x in subcortAreasIndexMap.keys() if subcortAreasIndexMap[x] != -1]
+  subcortFiles = ['./models/Dsurque_subcortical_ply/%s.ply' % x for x in subcortAreas]
 else:
   subcortRightAreas = [x[4:] for x in subcortAreasIndexMap.keys()]
   subcortRightAreasIndexMap = dict(zip(subcortRightAreas, subcortRegionsThatShouldBeInTemplate))
