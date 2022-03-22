@@ -785,7 +785,10 @@ def colorRegionsAndRender(indexMap, matDf, COLOR_POINTS, OUT_FOLDER, IMG_TYPE):
             # material = makeMaterial('mat_%d_%d_%s' % (matrixIndex, imgIndex, regionName), finalColor, (1,1,1), 1)
             # setMaterial(obj, material)
             # obj.material_slots[0].material = bpy.data.materials['mat_%d_%d_%s' % (matrixIndex, imgIndex, regionName)]
-            bpy.data.materials['mat_%s' % regionName].diffuse_color = finalColor
+            try: 
+              bpy.data.materials['mat_%s' % regionName].diffuse_color = finalColor
+            except:
+              print('error with painting region: ', regionName)
 
             # obj.data.materials.append(material)
 
