@@ -13,7 +13,7 @@ Cortical - outer   | Cortical - inner   |  Subcortical
 
 # BrainPainter - Brain colouring software 
 
-<span style="color:red">Sep 2019: BrainPainter can now be run straight from the browser:</span> https://brainpainter.csail.mit.edu/
+<span style="color:red">Sep 2019: The BrainPainter online service has now been moved to Goole Colab:</span> https://colab.research.google.com/drive/1qazM2eKGj18eXmu_IVH8HaAWyR9c8IY5#scrollTo=BPmGtEN6zI7O. The Virtual Machine at MIT CSAIL will be discontinued due to the difficulty maintaining it. 
 
 
 
